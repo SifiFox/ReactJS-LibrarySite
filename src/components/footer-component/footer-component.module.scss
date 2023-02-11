@@ -1,0 +1,43 @@
+.root {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 5.6rem;
+  border-top: 0.1rem solid #bfc4c9;
+  flex: 0 0 auto;
+  @media (max-width: 550px) {
+    flex-direction: column;
+    gap: 1.6rem;
+    text-align: center;
+    padding-top: 1.6rem;
+    margin-bottom: 0.8rem;
+    height: fit-content;
+  }
+}
+
+.footerIcons {
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+  height: 2.4rem;
+}
+
+.iconWrapper {
+  width: 2.4rem;
+  height: 2.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footerCopyrite {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  letter-spacing: 0.01rem;
+  color: #363636;
+  @media (max-width: 506px) {
+    max-width: 70%;
+  }
+}

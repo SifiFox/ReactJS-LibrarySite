@@ -1,0 +1,93 @@
+.root {
+  height: 6.4rem;
+  background: #f9f9fa;
+  width: 100%;
+  position: relative;
+  margin-bottom: 4.2rem;
+  margin-top: -2rem;
+}
+@media (max-width: 768px) {
+  .root {
+    margin-top: -0.8rem;
+    height: 8.8rem;
+    margin-bottom: 4.8rem;
+  }
+}
+@media (max-width: 506px) {
+  .root {
+    margin-top: -0.2rem;
+    height: 9.2rem;
+    margin-bottom: 2rem;
+  }
+}
+.root::before {
+  content: "";
+  position: absolute;
+  width: calc(100vw - 1.7rem);
+  height: 100%;
+  background-color: #f9f9fa;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-right: -50%;
+}
+@media (max-width: 768px) {
+  .root::before {
+    width: 100vw;
+  }
+}
+.root .breadcrumbsContent {
+  max-width: 111rem;
+  height: 100%;
+  margin: 0 auto;
+}
+.root .breadcrumbsContent .breadcrumbsList {
+  list-style: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.root .breadcrumbsContent .breadcrumbsList .breadcrumb {
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+  font-weight: 400;
+  letter-spacing: 0.01rem;
+  position: relative;
+}
+@media (max-width: 768px) {
+  .root .breadcrumbsContent .breadcrumbsList .breadcrumb {
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+  }
+}
+@media (max-width: 506px) {
+  .root .breadcrumbsContent .breadcrumbsList .breadcrumb {
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    letter-spacing: 0.02rem;
+  }
+}
+@media (max-width: 768px) {
+  .root .breadcrumbsContent .breadcrumbsList .breadcrumb:last-child {
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+  }
+}
+@media (max-width: 506px) {
+  .root .breadcrumbsContent .breadcrumbsList .breadcrumb:last-child {
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    letter-spacing: 0.02rem;
+  }
+}
+.root .breadcrumbsContent .breadcrumbsList li {
+  display: inline;
+  font-size: 18px;
+  color: #a7a7a7;
+}
+.root .breadcrumbsContent .breadcrumbsList li:not(:first-child) {
+  padding-left: 3.6rem;
+  background-image: url("../../assets/icons/breadcrumbsSeparator.svg");
+  background-position: 0.6rem 0rem;
+  background-size: 2.4rem 2.4rem;
+  background-repeat: no-repeat;
+}/*# sourceMappingURL=breadcrumbs.module.css.map */

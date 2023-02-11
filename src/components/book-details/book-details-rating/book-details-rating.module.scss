@@ -1,0 +1,12 @@
+.ratingList {
+  display: flex;
+  gap: 1.2rem;
+}
+
+.ratingListReview {
+  display: flex;
+  gap: 1.2rem;
+  @media (max-width: 660px) {
+    gap: 0.8rem;
+  }
+}

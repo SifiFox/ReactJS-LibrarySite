@@ -1,0 +1,13 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 4.2rem;
+  max-width: 73rem;
+  margin-bottom: 4.2rem;
+}
+@media (max-width: 660px) {
+  .root {
+    gap: 3.2rem;
+    margin-bottom: 2rem;
+  }
+}/*# sourceMappingURL=books-reviews-list.module.css.map */

@@ -1,0 +1,43 @@
+.detailsStarEmpty {
+  width: 2.4rem;
+  height: 2.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.detailsStarEmpty img {
+  width: 2rem;
+  height: 1.9rem;
+}
+@media (max-width: 660px) {
+  .detailsStarEmpty {
+    width: 3.4rem;
+    height: 3.4rem;
+  }
+  .detailsStarEmpty img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.detailsStarReviewEmpty {
+  width: 2.4rem;
+  height: 2.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.detailsStarReviewEmpty img {
+  width: 2rem;
+  height: 1.9rem;
+}
+@media (max-width: 660px) {
+  .detailsStarReviewEmpty {
+    width: 2.7rem;
+    height: 2.7rem;
+  }
+  .detailsStarReviewEmpty img {
+    width: 100%;
+    height: 100%;
+  }
+}/*# sourceMappingURL=details-star-empty.module.css.map */

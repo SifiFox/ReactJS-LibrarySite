@@ -1,0 +1,38 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.navListWrapper {
+  margin-bottom: 3.2rem;
+
+  @media (max-width: 768px) {
+    margin-bottom: 2.5rem;
+  }
+  @media (max-width: 320px) {
+    margin-bottom: 1.3rem;
+  }
+}
+.booksListWrapperSquare {
+  display: flex;
+  gap: 2.15rem;
+  flex-wrap: wrap;
+  @media (max-width: 768px) {
+    gap: 3.5rem;
+  }
+
+  @media (max-width: 670px) {
+    justify-content: center;
+  }
+
+  @media (max-width: 320px) {
+    gap: 1.7rem;
+  }
+}
+
+.booksListWrapperLine {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
