@@ -6,22 +6,26 @@ import imageEmpty from '../../../assets/images/bookImageEmpty.jpg';
 import { PrimaryBtn } from '../../btns-components/primary-btn';
 import { BookSwiper } from '../../swiper';
 
-export function BookDetailsInfo({ image, title, author, year }) {
+// export function BookDetailsInfo({ image, title, author, year }) {
+export function BookDetailsInfo({ ...props }) {
+  const baseUrl = 'https://strapi.cleverland.by';
+  const imageUrl = baseUrl.concat(props.image[0].url);
+
   const btnTitle = 'Забронировать';
   const btnSize = 'root';
   return (
     <div className={styles.root}>
       <div className={styles.mainImage}>
-        {image.length > 1 ? (
-          <BookSwiper images={image} />
+        {props.image.length > 1 ? (
+          <BookSwiper images={imageUrl} />
         ) : (
-          <img src={image.length === 1 ? image : imageEmpty} alt='' />
+          <img src={props.image.length === 1 ? imageUrl : imageEmpty} alt='' />
         )}
       </div>
       <div className={styles.mainInfo}>
-        <div className={styles.title}>{title}</div>
+        <div className={styles.title}>{props.title}</div>
         <div className={styles.author}>
-          {author}, {year}
+          {props.author}, {props.year}
         </div>
 
         <PrimaryBtn data-test-id='button-rating' size={btnSize} title={btnTitle} />
@@ -29,17 +33,7 @@ export function BookDetailsInfo({ image, title, author, year }) {
         <div className={styles.description}>
           <div className={styles.discriptionTitle}>О книге</div>
           <div className={styles.descriptionContent}>
-            <p>
-              Алгоритмы — это всего лишь пошаговые алгоритмы решения задач, и большинство таких задач уже были кем-то
-              решены, протестированы и проверены. Можно, конечно, погрузится в глубокую философию гениального Кнута,
-              изучить многостраничные фолианты с доказательствами и обоснованиями, но хотите ли вы тратить на это свое
-              время?
-            </p>
-
-            <p>
-              Откройте великолепно иллюстрированную книгу и вы сразу поймете, что алгоритмы — это просто. А грокать
-              алгоритмы — это веселое и увлекательное занятие.
-            </p>
+            <p>{props.description}</p>
           </div>
         </div>
       </div>
