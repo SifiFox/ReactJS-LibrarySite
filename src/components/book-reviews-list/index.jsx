@@ -4,21 +4,17 @@ import { BookReview } from '../book-review';
 
 import styles from './books-reviews-list.module.scss';
 
-import data from '../../assets/reviews.json';
-
-export function ReviewsList() {
-  const [reviews] = React.useState(data);
-
+export function ReviewsList({ data }) {
   return (
     <div className={styles.root}>
-      {reviews.map((review) => (
+      {data.map((review) => (
         <BookReview
           key={review.id}
-          image={review.image}
-          author={review.author}
+          id={review.id}
           rating={review.rating}
-          date={review.date}
-          description={review.description}
+          text={review.text}
+          time={review.createdAt}
+          user={review.user}
         />
       ))}
     </div>

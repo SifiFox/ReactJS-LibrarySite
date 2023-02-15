@@ -16,9 +16,7 @@ import { FreeMode, Pagination, Thumbs, Scrollbar } from 'swiper';
 
 export function BookSwiper({ images }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
   const thumbsInit = thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null;
-
   const thumbsCount = 5;
 
   const scrollParams =

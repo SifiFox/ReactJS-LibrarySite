@@ -2,6 +2,8 @@ import React from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 
+import { useGetCategoriesQuery } from '../../redux/slices/api-slice';
+
 import styles from './menu-component.module.scss';
 
 import { ProfileNav } from '../profile-nav';
@@ -11,6 +13,8 @@ import { MenuTabLink } from '../menu-tab-link';
 import { setMenuActive, setMenuInnerActive } from '../../redux/slices/menu-slice';
 
 export function Menu({ burgerRef }) {
+  const { data = [], isLoading, error } = useGetCategoriesQuery();
+
   const [isAuth] = React.useState(true);
   const { menuActive, burgerActive } = useSelector((state) => state.menu);
   const dispatch = useDispatch();

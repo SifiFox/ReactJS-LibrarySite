@@ -13,7 +13,10 @@ export const booksApi = createApi({
     getBook: builder.query({
       query: (id) => `/api/books/${id}`,
     }),
+    getCategories: builder.query({
+      query: () => `/api/categories`,
+    }),
   }),
 });
 
-export const { useGetBooksQuery, useGetBookQuery } = booksApi;
+export const { useGetBooksQuery, useGetBookQuery, useGetCategoriesQuery } = booksApi;

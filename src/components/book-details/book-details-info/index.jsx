@@ -6,10 +6,14 @@ import imageEmpty from '../../../assets/images/bookImageEmpty.jpg';
 import { PrimaryBtn } from '../../btns-components/primary-btn';
 import { BookSwiper } from '../../swiper';
 
-// export function BookDetailsInfo({ image, title, author, year }) {
 export function BookDetailsInfo({ ...props }) {
   const baseUrl = 'https://strapi.cleverland.by';
+
   const imageUrl = baseUrl.concat(props.image[0].url);
+
+  function imagesArray(images) {
+    return images.map((image) => baseUrl.concat(image.url));
+  }
 
   const btnTitle = 'Забронировать';
   const btnSize = 'root';
@@ -17,7 +21,7 @@ export function BookDetailsInfo({ ...props }) {
     <div className={styles.root}>
       <div className={styles.mainImage}>
         {props.image.length > 1 ? (
-          <BookSwiper images={imageUrl} />
+          <BookSwiper images={imagesArray(props.image)} />
         ) : (
           <img src={props.image.length === 1 ? imageUrl : imageEmpty} alt='' />
         )}

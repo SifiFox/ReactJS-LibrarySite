@@ -19,7 +19,6 @@ export function MenuTabInner({ data, showed, defaultActive }) {
   };
   React.useEffect(() => {
     window.addEventListener('resize', handleResize, false);
-    // console.log(location.pathname.includes());
   }, [location, data]);
 
   const handleClickMenuItem = () => {
@@ -28,9 +27,17 @@ export function MenuTabInner({ data, showed, defaultActive }) {
     }
   };
 
+  console.log(data);
+
   return (
     <div className={showed ? styles.menuTabInner : styles.hide}>
       <ul>
+        {/* <li className={styles.menuTabRow}>
+          <NavLink onClick={handleClickMenuItem} to={`/books/all`} className={setActive}>
+            <span className={styles.categoryName}>Все книги</span>
+          </NavLink>
+        </li> */}
+
         {data &&
           data.map((category) => (
             <li key={category.id} className={styles.menuTabRow}>
@@ -41,7 +48,7 @@ export function MenuTabInner({ data, showed, defaultActive }) {
                     : category.type === 'all' && windowWidth <= 768 && 'burger-books'
                 }
                 onClick={handleClickMenuItem}
-                to={`/books/${category.type}`}
+                to={`/books/${category.path}`}
                 className={setActive}
               >
                 <span className={styles.categoryName}>{category.name}</span>

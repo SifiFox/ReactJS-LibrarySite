@@ -9,12 +9,10 @@ import dataTest from '../../assets/books-data.json';
 export function BooksList({ listType }) {
   const { data = [], isLoading } = useGetBooksQuery();
 
-  console.log(data);
-
   return (
     <React.Fragment>
       {data.map((book) => (
-        <Link key={book.id} to={`/book/${book.id}`}>
+        <Link key={book.id} to={`/books/all/${book.id}`}>
           <BookCard
             key={book.id}
             title={book.title}

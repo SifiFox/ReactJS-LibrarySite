@@ -60,7 +60,6 @@ export function MenuTabLink({ to, ...props }) {
         onClick={handleMenuClick}
         to={to}
         className={
-          // match ? (props.innerItems ? props.menuActiveInnerContent : props.menuActiveTabTitle) : props.menuTabTitle
           match
             ? props.innerItems
               ? innerMenuActive

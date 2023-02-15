@@ -7,14 +7,17 @@ import { ReviewsList } from '../../book-reviews-list';
 
 import { PrimaryBtn } from '../../btns-components/primary-btn';
 
-export function BookDetailsReviews({ rating }) {
+export function BookDetailsReviews(props) {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const btnTitle = 'оценить книгу';
   const btnSize = 'full';
 
+  const reviewsCount = props.comments ? props.comments.length : 0;
+
+  const setParam = (value) => (value ? value : '');
+
   const handleReviewsClick = () => {
-    console.log('reviews click');
     setIsOpen(!isOpen);
   };
 
@@ -23,8 +26,8 @@ export function BookDetailsReviews({ rating }) {
       <div className={styles.reviewsSection}>
         <div className={styles.reviewsSectionTitle}>Рейтинг</div>
         <div className={styles.rating}>
-          <DetailsRating rating={rating} type='book' />
-          <span className={styles.ratingValue}>{rating}</span>
+          <DetailsRating rating={props.rating} type='book' />
+          <span className={styles.ratingValue}>{props.rating}</span>
         </div>
       </div>
       <div className={styles.reviewsSection}>
@@ -33,43 +36,41 @@ export function BookDetailsReviews({ rating }) {
           <div className={styles.specificationCol}>
             <div className={styles.specificationRow}>
               <div className={styles.specificationRowTitle}>Издательство</div>
-              <div className={styles.specificationRowValue}>Питер</div>
+              <div className={styles.specificationRowValue}>{setParam(props.publish)}</div>
             </div>
             <div className={styles.specificationRow}>
               <div className={styles.specificationRowTitle}>Год издания</div>
-              <div className={styles.specificationRowValue}>2019</div>
+              <div className={styles.specificationRowValue}>{setParam(props.issueYear)}</div>
             </div>
             <div className={styles.specificationRow}>
               <div className={styles.specificationRowTitle}>Страниц</div>
-              <div className={styles.specificationRowValue}>288</div>
+              <div className={styles.specificationRowValue}>{setParam(props.pages)}</div>
             </div>
             <div className={styles.specificationRow}>
               <div className={styles.specificationRowTitle}>Переплёт</div>
-              <div className={styles.specificationRowValue}>Мягкая обложка</div>
+              <div className={styles.specificationRowValue}>{setParam(props.cover)}</div>
             </div>
             <div className={styles.specificationRow}>
               <div className={styles.specificationRowTitle}>Формат</div>
-              <div className={styles.specificationRowValue}>70х100</div>
+              <div className={styles.specificationRowValue}>{setParam(props.format)}</div>
             </div>
           </div>
           <div className={styles.specificationCol}>
             <div className={styles.specificationRow}>
               <div className={styles.specificationRowTitle}>Жанр</div>
-              <div className={styles.specificationRowValue}>Компьютерная литература</div>
+              <div className={styles.specificationRowValue}>{setParam(props.categories)}</div>
             </div>
             <div className={styles.specificationRow}>
               <div className={styles.specificationRowTitle}>Вес</div>
-              <div className={styles.specificationRowValue}>370 г</div>
+              <div className={styles.specificationRowValue}>{setParam(props.weight)}</div>
             </div>
             <div className={styles.specificationRow}>
               <div className={styles.specificationRowTitle}>ISBN</div>
-              <div className={styles.specificationRowValue}>978-5-4461-0923-4</div>
+              <div className={styles.specificationRowValue}>{setParam(props.isbn)}</div>
             </div>
             <div className={styles.specificationRow}>
               <div className={styles.specificationRowTitle}>Изготовитель</div>
-              <div className={styles.specificationRowValue}>
-                ООО «Питер Мейл». РФ, 198 206, г. Санкт-Петербург, Петергофское ш, д. 73, лит. А29
-              </div>
+              <div className={styles.specificationRowValue}>{setParam(props.producer)}</div>
             </div>
           </div>
         </div>
@@ -81,9 +82,9 @@ export function BookDetailsReviews({ rating }) {
           onClick={handleReviewsClick}
           className={styles.reviewsSectionTitle}
         >
-          Отзывы <span className={isOpen ? styles.reviewsCountActive : styles.reviewsCount}>2</span>
+          Отзывы <span className={isOpen ? styles.reviewsCountActive : styles.reviewsCount}>{reviewsCount}</span>
         </div>
-        {isOpen && <ReviewsList reviewsCount={3} />}
+        {isOpen && reviewsCount > 0 ? <ReviewsList data={props.comments} reviewsCount={reviewsCount} /> : null}
 
         <div className={styles.reviewsBtn}>
           <PrimaryBtn size={btnSize} title={btnTitle} />

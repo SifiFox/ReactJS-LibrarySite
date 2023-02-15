@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { useGetBooksQuery } from '../../redux/slices/api-slice';
 
@@ -11,10 +11,14 @@ import { Books } from '../../components/books-component';
 import { Footer } from '../../components/footer-component';
 import { Preloader } from '../../components/preload-component';
 import { setBooksList } from '../../redux/slices/books-slice';
+import { Error } from '../../components/error-component';
+import { hideLoader } from '../../redux/slices/loader-slice';
 
 export function MainPage() {
   const [menuIsActive, setMenuIsActive] = React.useState(false);
   const [burgerIsActive, setBurgerIsActive] = React.useState(false);
+
+  const isLoad = useSelector((state) => state.loader.isLoad);
 
   const dispatch = useDispatch();
 
@@ -33,23 +37,28 @@ export function MainPage() {
     }
 
     if (!isLoading) {
+      dispatch(hideLoader());
       dispatch(setBooksList(data));
     }
-  }, [location, navigate, isLoading, dispatch, data]);
+  }, [location, navigate, isLoading, dispatch, data, isLoad]);
 
   return (
-    <div className='wrapper'>
-      {isLoading && <Preloader />}
+    <>
+      {isLoad && !error && <Preloader />}
 
-      <Header burgerRef={burgerRef} />
+      <div className='wrapper'>
+        {error && <Error />}
 
-      <div className='content'>
-        <Menu burgerRef={burgerRef} />
+        <Header burgerRef={burgerRef} />
 
-        {!isLoading && <Books burgerRef={burgerRef} />}
+        <div className='content'>
+          <Menu burgerRef={burgerRef} />
+
+          {!isLoad && !error && <Books burgerRef={burgerRef} />}
+        </div>
+
+        <Footer />
       </div>
-
-      <Footer />
-    </div>
+    </>
   );
 }
