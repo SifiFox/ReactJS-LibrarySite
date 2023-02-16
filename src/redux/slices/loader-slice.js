@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   isLoad: true,
+  isError: false,
 };
 
 const loaderSlice = createSlice({
@@ -14,8 +15,14 @@ const loaderSlice = createSlice({
     hideLoader(state) {
       state.isLoad = false;
     },
+    showError(state) {
+      state.isError = true;
+    },
+    hideError(state) {
+      state.isError = false;
+    },
   },
 });
 
 export const loader = loaderSlice.reducer;
-export const { showLoader, hideLoader } = loaderSlice.actions;
+export const { showLoader, hideLoader, showError, hideError } = loaderSlice.actions;

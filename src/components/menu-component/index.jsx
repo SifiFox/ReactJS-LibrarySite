@@ -11,6 +11,7 @@ import { ProfileNav } from '../profile-nav';
 import data from '../../assets/categories.json';
 import { MenuTabLink } from '../menu-tab-link';
 import { setMenuActive, setMenuInnerActive } from '../../redux/slices/menu-slice';
+import { showError } from '../../redux/slices/loader-slice';
 
 export function Menu({ burgerRef }) {
   const { data = [], isLoading, error } = useGetCategoriesQuery();
@@ -36,9 +37,15 @@ export function Menu({ burgerRef }) {
       }
     };
 
+    if (!isLoading) {
+      if (error) {
+        dispatch(showError());
+      }
+    }
+
     document.body.addEventListener('click', handleClickOutside);
     return () => document.body.removeEventListener('click', handleClickOutside);
-  }, [burgerActive, burgerRef, dispatch]);
+  }, [burgerActive, burgerRef, dispatch, isLoading, error]);
 
   return (
     <div

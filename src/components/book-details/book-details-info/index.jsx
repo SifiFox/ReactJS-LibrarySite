@@ -9,6 +9,7 @@ import { BookSwiper } from '../../swiper';
 export function BookDetailsInfo({ ...props }) {
   const baseUrl = 'https://strapi.cleverland.by';
 
+  console.log(props.image);
   const imageUrl = baseUrl.concat(props.image[0].url);
 
   function imagesArray(images) {

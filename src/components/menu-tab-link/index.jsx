@@ -14,8 +14,8 @@ import {
 } from '../../redux/slices/menu-slice';
 
 export function MenuTabLink({ to, ...props }) {
+  const isError = useSelector((state) => state.loader.isError);
   const match = useMatch(to);
-
   const dispatch = useDispatch();
   const isBooksAll = props.title === 'Витрина книг';
 
@@ -72,7 +72,7 @@ export function MenuTabLink({ to, ...props }) {
         {props.title}
       </Link>
 
-      {props.innerItems && innerMenuActive ? (
+      {props.innerItems && innerMenuActive && !isError ? (
         <MenuTabInner showed={true} defaultActive={props.innerItems[0]} data={props.innerItems} />
       ) : (
         <MenuTabInner data={props.innerItems} showed={false} />

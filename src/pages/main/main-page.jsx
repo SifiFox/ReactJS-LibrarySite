@@ -12,13 +12,14 @@ import { Footer } from '../../components/footer-component';
 import { Preloader } from '../../components/preload-component';
 import { setBooksList } from '../../redux/slices/books-slice';
 import { Error } from '../../components/error-component';
-import { hideLoader } from '../../redux/slices/loader-slice';
+import { hideLoader, showError } from '../../redux/slices/loader-slice';
 
 export function MainPage() {
   const [menuIsActive, setMenuIsActive] = React.useState(false);
   const [burgerIsActive, setBurgerIsActive] = React.useState(false);
 
   const isLoad = useSelector((state) => state.loader.isLoad);
+  const isError = useSelector((state) => state.loader.isError);
 
   const dispatch = useDispatch();
 
@@ -40,21 +41,25 @@ export function MainPage() {
       dispatch(hideLoader());
       dispatch(setBooksList(data));
     }
-  }, [location, navigate, isLoading, dispatch, data, isLoad]);
+
+    if (error) {
+      dispatch(showError());
+    }
+  }, [location, navigate, isLoading, dispatch, error, data]);
 
   return (
     <>
       {isLoad && !error && <Preloader />}
 
       <div className='wrapper'>
-        {error && <Error />}
+        {isError && <Error />}
 
         <Header burgerRef={burgerRef} />
 
         <div className='content'>
           <Menu burgerRef={burgerRef} />
 
-          {!isLoad && !error && <Books burgerRef={burgerRef} />}
+          {!isLoad && !isError && <Books burgerRef={burgerRef} />}
         </div>
 
         <Footer />

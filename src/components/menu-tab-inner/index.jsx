@@ -32,11 +32,11 @@ export function MenuTabInner({ data, showed, defaultActive }) {
   return (
     <div className={showed ? styles.menuTabInner : styles.hide}>
       <ul>
-        {/* <li className={styles.menuTabRow}>
-          <NavLink onClick={handleClickMenuItem} to={`/books/all`} className={setActive}>
+        <li className={styles.menuTabRow}>
+          <NavLink onClick={handleClickMenuItem} to='/books/all' className={setActive}>
             <span className={styles.categoryName}>Все книги</span>
           </NavLink>
-        </li> */}
+        </li>
 
         {data &&
           data.map((category) => (
@@ -52,7 +52,7 @@ export function MenuTabInner({ data, showed, defaultActive }) {
                 className={setActive}
               >
                 <span className={styles.categoryName}>{category.name}</span>
-                <span className={styles.menuTabRowCount}>{category.count}</span>
+                <span className={styles.menuTabRowCount}>10</span>
               </NavLink>
             </li>
           ))}

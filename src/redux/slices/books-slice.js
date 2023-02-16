@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   books: [],
+  categories: [],
 };
 
 const booksSlice = createSlice({
