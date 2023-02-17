@@ -26,6 +26,8 @@
       gap: 1.2rem;
       font-size: 1.4rem;
       line-height: 1.8rem;
+      max-width: 90%;
+      align-items: flex-start;
     }
 
     .closeError {
@@ -38,6 +40,10 @@
       outline: none;
       border: none;
       cursor: pointer;
+      @media (max-width: 768px) {
+        top: 2rem;
+        right: 1.6rem;
+      }
       &::after {
         content: '';
         position: absolute;
