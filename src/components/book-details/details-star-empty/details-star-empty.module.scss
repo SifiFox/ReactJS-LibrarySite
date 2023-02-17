@@ -1,0 +1,41 @@
+.detailsStarEmpty {
+  width: 2.4rem;
+  height: 2.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 2rem;
+    height: 1.9rem;
+  }
+
+  @media (max-width: 660px) {
+    width: 3.4rem;
+    height: 3.4rem;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.detailsStarReviewEmpty {
+  width: 2.4rem;
+  height: 2.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 2rem;
+    height: 1.9rem;
+  }
+
+  @media (max-width: 660px) {
+    width: 2.7rem;
+    height: 2.7rem;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

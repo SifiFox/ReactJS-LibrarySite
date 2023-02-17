@@ -1,0 +1,43 @@
+@charset "UTF-8";
+.root .termsTitle {
+  margin-bottom: 3.2rem;
+}
+@media (max-width: 506px) {
+  .root .termsTitle {
+    margin-bottom: 2.4rem;
+  }
+}
+.root ol {
+  /* убираем стандартную нумерацию */
+  list-style: none;
+  /* Идентифицируем счетчик и даем ему имя li. Значение счетчика не указано - по умолчанию оно равно 0 */
+  counter-reset: li;
+}
+.root ol:not(.mainList) {
+  padding-top: 1.6rem;
+}
+.root ol li:not(.listTitle) {
+  padding-left: 3rem;
+}
+.root ol li:not(:last-child) {
+  margin-bottom: 1.6rem;
+}
+.root li:before {
+  /* Определяем элемент, который будет нумероваться — li. Псевдоэлемент before указывает, что содержимое, вставляемое при помощи свойства content, будет располагаться перед пунктами списка. Здесь же устанавливается значение приращения счетчика (по умолчанию равно 1). */
+  counter-increment: li;
+  /* С помощью свойства content выводится номер пункта списка. counters() означает, что генерируемый текст представляет собой значения всех счетчиков с таким именем. Точка в кавычках добавляет разделяющую точку между цифрами, а точка с пробелом добавляется перед содержимым каждого пункта списка */
+  content: counters(li, ".") ". ";
+}
+.root .listTitle {
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  font-weight: 600;
+}
+.root .mainList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+.root .listInner {
+  font-weight: 400;
+}/*# sourceMappingURL=terms-component.module.css.map */

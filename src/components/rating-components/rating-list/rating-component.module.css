@@ -1,0 +1,6 @@
+.ratingList {
+  display: flex;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+  order: 3;
+}/*# sourceMappingURL=rating-component.module.css.map */

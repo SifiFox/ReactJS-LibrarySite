@@ -1,0 +1,45 @@
+.detailsStarFilled {
+  width: 2.4rem;
+  height: 2.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.detailsStarFilled img {
+  width: 2rem;
+  height: 1.9rem;
+}
+@media (max-width: 660px) {
+  .detailsStarFilled {
+    width: 3.4rem;
+    height: 3.4rem;
+  }
+  .detailsStarFilled img {
+    max-width: 2.8rem;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.detailsStarReviewFilled {
+  width: 2.4rem;
+  height: 2.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.detailsStarReviewFilled img {
+  width: 2rem;
+  height: 1.9rem;
+}
+@media (max-width: 660px) {
+  .detailsStarReviewFilled {
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+  .detailsStarReviewFilled img {
+    max-width: 2.8rem;
+    width: 100%;
+    height: 100%;
+  }
+}/*# sourceMappingURL=details-star-filled.module.css.map */

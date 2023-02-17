@@ -1,0 +1,71 @@
+.menuTabInner {
+  transition: all 0.2s ease-in-out;
+  padding-left: 2rem;
+  padding-top: 1.6rem;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  letter-spacing: 0.01rem;
+  color: #363636;
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+  }
+}
+
+.hide {
+  display: none;
+}
+
+.menuTabRowTitle {
+  white-space: wrap;
+  float: left;
+  margin-right: 0.6rem;
+  padding-left: 0.4rem;
+  @media (max-width: 768px) {
+    margin-right: 0rem;
+  }
+}
+
+.menuTabRow {
+  .menuTabRowCount {
+    color: #a7a7a7;
+    padding-left: 0.6rem;
+    font-size: 1.4rem;
+  }
+}
+
+.menuTabRowActive {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 2.8rem;
+  letter-spacing: 0.01rem;
+  background: linear-gradient(231.58deg, #f83600 -53.35%, #f9d423 297.76%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.menuTabRowTitleActive {
+  margin-right: 0.6rem;
+  padding-left: 0;
+
+  .categoryName {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.8rem;
+    line-height: 2.8rem;
+    letter-spacing: 0.01rem;
+    background: linear-gradient(231.58deg, #f83600 -53.35%, #f9d423 297.76%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .menuTabRowCount {
+    color: #a7a7a7;
+  }
+}

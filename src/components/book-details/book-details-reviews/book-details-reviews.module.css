@@ -1,0 +1,178 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 6.2rem;
+}
+@media (max-width: 768px) {
+  .root {
+    gap: 5.2rem;
+  }
+}
+@media (max-width: 660px) {
+  .root {
+    gap: 0;
+  }
+}
+
+.reviewsSection {
+  margin-bottom: 4.2rem;
+}
+.reviewsSection:first-child {
+  margin-bottom: 2.4rem;
+}
+@media (max-width: 660px) {
+  .reviewsSection:last-child {
+    margin-bottom: 0.4rem;
+  }
+}
+
+.reviewsSectionTitle {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 2.8rem;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.01rem;
+  color: #363636;
+  padding-bottom: 1.6rem;
+  margin-bottom: 1.6rem;
+  width: 35rem;
+  border-bottom: 0.1rem solid #ebebeb;
+}
+@media (max-width: 768px) {
+  .reviewsSectionTitle {
+    font-size: 1.5rem;
+    line-height: 2.4rem;
+  }
+}
+@media (max-width: 660px) {
+  .reviewsSectionTitle {
+    width: 20.9rem;
+    font-size: 1.8rem;
+    line-height: 2.8rem;
+    padding-bottom: 0.8rem;
+    margin-bottom: 0.8rem;
+    white-space: nowrap;
+  }
+}
+
+.rating {
+  display: flex;
+  gap: 2.4rem;
+}
+.ratingValue {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 1.8rem;
+  line-height: 2.8rem;
+  letter-spacing: 0.01rem;
+  color: #363636;
+}
+
+.specification {
+  display: flex;
+  justify-content: space-between;
+}
+@media (max-width: 660px) {
+  .specification {
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 1.6rem;
+  }
+}
+
+.specificationCol {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  min-width: 32.9rem;
+}
+@media (max-width: 768px) {
+  .specificationCol {
+    width: 30.5rem;
+    min-width: unset;
+  }
+}
+@media (max-width: 768px) {
+  .specificationCol {
+    width: 100%;
+  }
+}
+
+.specificationRow {
+  display: flex;
+  max-width: 63.5rem;
+  gap: 7rem;
+}
+@media (max-width: 768px) {
+  .specificationRow {
+    gap: 3.2rem;
+  }
+}
+@media (max-width: 660px) {
+  .specificationRow {
+    gap: 2.4rem;
+  }
+}
+
+.specificationRowTitle {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  display: flex;
+  align-items: baseline;
+  letter-spacing: 0.01rem;
+  color: #a7a7a7;
+  width: 12rem;
+}
+@media (max-width: 768px) {
+  .specificationRowTitle {
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+    max-width: 10.5rem;
+    min-width: 10.5rem;
+  }
+}
+@media (max-width: 660px) {
+  .specificationRowTitle {
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    letter-spacing: 0.02rem;
+  }
+}
+
+.specificationRowValue {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  display: flex;
+  align-items: center;
+  letter-spacing: 0.01rem;
+  color: #363636;
+  max-width: 44.5rem;
+}
+@media (max-width: 768px) {
+  .specificationRowValue {
+    font-size: 1.4rem;
+    line-height: 1.8rem;
+  }
+}
+@media (max-width: 660px) {
+  .specificationRowValue {
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+  }
+}
+
+.reviewsCount {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.4rem;
+  line-height: 2.4rem;
+  letter-spacing: 0.01rem;
+  color: #a7a7a7;
+  padding-left: 0.6rem;
+}/*# sourceMappingURL=book-details-reviews.module.css.map */
