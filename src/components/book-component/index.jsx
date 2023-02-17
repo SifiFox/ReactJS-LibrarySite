@@ -50,6 +50,7 @@ export function BookCard({ title, rating, year, author, image, booking, listType
         <div className={styles.bookAuthor}>
           {author}, {year}
         </div>
+
         {isBooked ? <DisabledBtn date={dateString} /> : <BookBtn />}
       </div>
     </div>
