@@ -46,14 +46,6 @@ export function BookPage() {
 
   const isLoad = useSelector((state) => state.loader.isLoad);
 
-  // const book = dataDemo.filter((item) => item.id === bookId).reduce((item) => item);
-
-  if (isLoading) {
-    console.log('is loading');
-  } else {
-    console.log(data);
-  }
-
   React.useEffect(() => {
     if (!isLoading) {
       dispatch(hideLoader());
@@ -62,15 +54,15 @@ export function BookPage() {
 
   return (
     <>
-      {isLoad && !error && <Preloader />}
+      {isLoading && !error && <Preloader />}
 
       <div className='wrapper'>
         {error && <Error />}
 
         <Header />
-        <Breadcrumbs title={data.title} />
+        {!isLoading && !error && <Breadcrumbs category={data.categories} title={data.title} />}
         <div className='book-details__content'>
-          {!isLoad && !error && (
+          {!isLoading && !error && (
             <BookDetailsInfo
               description={data.description}
               image={data.images}
@@ -80,7 +72,7 @@ export function BookPage() {
             />
           )}
 
-          {!isLoad && !error && (
+          {!isLoading && !error && (
             <BookDetailsReviews
               isbn={data.ISBN}
               booking={data.booking}

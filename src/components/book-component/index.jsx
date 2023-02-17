@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { BookBtn } from '../btns-components/book-btn';
 import { DisabledBtn } from '../btns-components/disabled-btn';
 import { Rating } from '../rating-components/rating-list';
@@ -5,29 +7,32 @@ import { Rating } from '../rating-components/rating-list';
 import styles from './book-component.module.scss';
 import bookImageEmpty from '../../assets/images/bookImageEmpty.jpg';
 
-export function BookCard({ title, rating, year, author, image, listType }) {
-  // const date = new Date(bookedTill);
-  // const month = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(date);
-  // const day = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(date);
+export function BookCard({ title, rating, year, author, image, booking, listType }) {
+  const [isBooked, setIsBooked] = React.useState(false);
+  const [dateString, setDateString] = React.useState(null);
 
   let slicedTitle = title.slice(0, 40);
-
   if (slicedTitle.length < title.length) {
     slicedTitle += '...';
   }
 
-  const ibooked = false;
   const baseUrl = 'https://strapi.cleverland.by';
+
+  React.useEffect(() => {
+    if (booking) {
+      setIsBooked(true);
+      const dateString = new Date(booking.dateOrder).toLocaleString('ru-RU', {
+        month: 'numeric',
+        day: 'numeric',
+      });
+      setDateString(dateString);
+    }
+  }, [booking]);
 
   return (
     <div data-test-id='card' className={listType === 'square' ? styles.bookSquare : styles.bookLine}>
       <div className={styles.bookImageWrapper}>
-        <img
-          className={styles.bookImage}
-          // src={Number(image.length) !== 0 ? (Number(image.length) > 1 ? image[0] : image) : bookImageEmpty}
-          src={image !== null ? baseUrl.concat(image.url) : bookImageEmpty}
-          alt=''
-        />
+        <img className={styles.bookImage} src={image !== null ? baseUrl.concat(image.url) : bookImageEmpty} alt='' />
       </div>
 
       <div className={styles.bookContent}>
@@ -42,8 +47,7 @@ export function BookCard({ title, rating, year, author, image, listType }) {
         <div className={styles.bookAuthor}>
           {author}, {year}
         </div>
-        {/* {isBooked ? <DisabledBtn month={12} day={12} /> : <BookBtn />} */}
-        {ibooked ? <DisabledBtn month={12} day={12} /> : <BookBtn />}
+        {isBooked ? <DisabledBtn date={dateString} /> : <BookBtn />}
       </div>
     </div>
   );

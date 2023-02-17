@@ -27,8 +27,6 @@ export function MenuTabInner({ data, showed, defaultActive }) {
     }
   };
 
-  console.log(data);
-
   return (
     <div className={showed ? styles.menuTabInner : styles.hide}>
       <ul>

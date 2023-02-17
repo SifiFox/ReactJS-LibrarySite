@@ -20,6 +20,7 @@ export function BooksList({ listType }) {
             author={book.authors}
             rating={book.rating}
             image={book.image}
+            booking={book.booking}
             listType={listType}
           />
         </Link>

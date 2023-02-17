@@ -29,6 +29,8 @@ export function MainPage() {
 
   const { data = [], isLoading, error } = useGetBooksQuery();
 
+  // console.log(data);
+
   React.useEffect(() => {
     if (location.pathname === '/') {
       navigate('/books/all');
@@ -49,7 +51,7 @@ export function MainPage() {
 
   return (
     <>
-      {isLoad && !error && <Preloader />}
+      {isLoading && !error && <Preloader />}
 
       <div className='wrapper'>
         {isError && <Error />}
@@ -59,7 +61,7 @@ export function MainPage() {
         <div className='content'>
           <Menu burgerRef={burgerRef} />
 
-          {!isLoad && !isError && <Books burgerRef={burgerRef} />}
+          {!isLoading && !isError && <Books burgerRef={burgerRef} />}
         </div>
 
         <Footer />

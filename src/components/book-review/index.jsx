@@ -4,8 +4,9 @@ import styles from './book-review.module.scss';
 import imageEmpty from '../../assets/images/reviewAvatar.jpg';
 
 export function BookReview({ id, rating, text, time, user }) {
-  const userImage = user.avatarUrl ? user.avatarUrl : imageEmpty;
+  const baseUrl = 'https://strapi.cleverland.by';
 
+  const userImage = user.avatarUrl ? baseUrl.concat(user.avatarUrl) : imageEmpty;
   const date = new Date(time);
 
   return (

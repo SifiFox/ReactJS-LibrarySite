@@ -9,21 +9,30 @@ import iconSort from '../../assets/icons/iconSort.svg';
 import { showSearch, hideSearch } from '../../redux/slices/search-slice';
 
 export function NavList({ listType, onClickListType }) {
+  const [windowWidth, setWindowWidth] = React.useState(React.useRef(window.innerWidth));
   const setActiveBtn = (type) => {
     onClickListType(type);
   };
   const { searchActive } = useSelector((state) => state.search);
 
   const dispatch = useDispatch();
-
   function onClickSearch(e) {
     e.stopPropagation();
-    dispatch(showSearch());
+    if (windowWidth.current < 768) {
+      dispatch(showSearch());
+    }
   }
   function onClickClose(e) {
     e.stopPropagation();
     dispatch(hideSearch());
   }
+  const handleResize = () => {
+    setWindowWidth(window.innerWidth);
+  };
+
+  React.useEffect(() => {
+    window.addEventListener('resize', handleResize, false);
+  }, []);
 
   return (
     <div className={styles.root}>

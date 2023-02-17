@@ -14,8 +14,6 @@ const searchSlice = createSlice({
 
     hideSearch(state) {
       state.searchActive = false;
-      console.log('hide search slice');
-      console.log(state.searchActive);
     },
   },
 });
