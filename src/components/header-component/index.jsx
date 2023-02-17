@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setMenuActive, showMenu } from '../../redux/slices/menu-slice';
+import { setMenuActive } from '../../redux/slices/menu-slice';
 
 import styles from './header-component.module.scss';
 
@@ -32,7 +32,7 @@ export function Header({ burgerRef }) {
         </button>
         <Link to='/books/all'>
           <div className={styles.logo}>
-            <img src={logo} alt='' />
+            <img src={logo} alt='logo' />
           </div>
         </Link>
         <div className='title h3'>Библиотека</div>

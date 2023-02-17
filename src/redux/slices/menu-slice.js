@@ -23,15 +23,12 @@ const menuSlice = createSlice({
       state.menuActive = true;
     },
     setMenuInnerActive(state) {
-      console.log('set menu inner active slice');
       state.innerMenuActive = !state.innerMenuActive;
     },
     showInnerMenu(state) {
-      console.log('show inner menu slice');
       state.innerMenuActive = true;
     },
     hideInnerMenu(state) {
-      console.log('hide inner menu slice');
       state.innerMenuActive = false;
     },
   },

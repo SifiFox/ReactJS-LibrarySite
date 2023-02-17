@@ -10,15 +10,10 @@ import { Menu } from '../../components/menu-component';
 import { Books } from '../../components/books-component';
 import { Footer } from '../../components/footer-component';
 import { Preloader } from '../../components/preload-component';
-import { setBooksList } from '../../redux/slices/books-slice';
 import { Error } from '../../components/error-component';
 import { hideLoader, showError } from '../../redux/slices/loader-slice';
 
 export function MainPage() {
-  const [menuIsActive, setMenuIsActive] = React.useState(false);
-  const [burgerIsActive, setBurgerIsActive] = React.useState(false);
-
-  const isLoad = useSelector((state) => state.loader.isLoad);
   const isError = useSelector((state) => state.loader.isError);
 
   const dispatch = useDispatch();
@@ -28,8 +23,6 @@ export function MainPage() {
   const navigate = useNavigate();
 
   const { data = [], isLoading, error } = useGetBooksQuery();
-
-  // console.log(data);
 
   React.useEffect(() => {
     if (location.pathname === '/') {
@@ -41,7 +34,6 @@ export function MainPage() {
 
     if (!isLoading) {
       dispatch(hideLoader());
-      dispatch(setBooksList(data));
     }
 
     if (error) {

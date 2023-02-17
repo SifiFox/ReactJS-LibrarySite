@@ -3,9 +3,9 @@ import styles from './book-review.module.scss';
 
 import imageEmpty from '../../assets/images/reviewAvatar.jpg';
 
-export function BookReview({ id, rating, text, time, user }) {
-  const baseUrl = 'https://strapi.cleverland.by';
+import { baseUrl } from '../../constants/constants';
 
+export function BookReview({ id, rating, text, time, user }) {
   const userImage = user.avatarUrl ? baseUrl.concat(user.avatarUrl) : imageEmpty;
   const date = new Date(time);
 
@@ -13,7 +13,7 @@ export function BookReview({ id, rating, text, time, user }) {
     <div className={styles.root}>
       <div className={styles.reviewHeader}>
         <div className={styles.reviewAuthorAvatar}>
-          <img src={userImage} alt='' />
+          <img src={userImage} alt='user' />
         </div>
         <div className={styles.reviewAuthorName}>
           {user.firstName} {user.lastName}

@@ -7,7 +7,7 @@ export function Error() {
   return (
     <div data-test-id='error' className={styles.root}>
       <div className={styles.errorContent}>
-        <img src={errorCircle} alt='' />
+        <img src={errorCircle} alt='error' />
         <span>Что-то пошло не так. Обновите страницу через некоторое время.</span>
         <button type='button' className={styles.closeError}>
           {' '}

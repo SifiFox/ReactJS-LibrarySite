@@ -1,18 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
-
+import { book } from './slices/book-slice';
+import { booksApi } from './slices/api-slice';
+import { loader } from './slices/loader-slice';
 import { menu } from './slices/menu-slice';
 import { search } from './slices/search-slice';
-import { book } from './slices/book-slice';
-import { books } from './slices/books-slice';
-import { loader } from './slices/loader-slice';
-import { booksApi } from './slices/api-slice';
 
 export const store = configureStore({
   reducer: {
-    menu,
     search,
+    menu,
     book,
-    books,
     loader,
     [booksApi.reducerPath]: booksApi.reducer,
   },

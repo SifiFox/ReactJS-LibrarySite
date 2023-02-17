@@ -34,10 +34,8 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    // text-fill-color: transparent;
     padding-bottom: 0.8rem;
     border-bottom: 0.1rem solid #f83600;
-    // margin-bottom: 1.6rem;
     max-width: 25.5rem;
     position: relative;
   }
@@ -49,10 +47,8 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    // text-fill-color: transparent;
     padding-bottom: 0.8rem;
     border-bottom: 0.1rem solid #f83600;
-    // margin-bottom: 1.6rem;
     max-width: 25.5rem;
     position: relative;
     &::after {
@@ -77,10 +73,8 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    // text-fill-color: transparent;
     padding-bottom: 0.8rem;
     border-bottom: 0.1rem solid #f83600;
-    // margin-bottom: 1.6rem;
     max-width: 25.5rem;
     position: relative;
     &::after {
@@ -135,10 +129,6 @@
       0px 1px 5px rgba(191, 196, 201, 0.24);
     border-radius: 1rem;
     padding: 3.2rem;
-
-    // position: fixed;
-    // overflow-y: scroll;
-    // height: calc(100vh - 9rem);
   }
 
   @media (max-width: 606px) {

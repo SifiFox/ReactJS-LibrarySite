@@ -1,13 +1,11 @@
-import { useParams } from 'react-router-dom';
-
 import styles from './book-details-info.module.scss';
 
 import imageEmpty from '../../../assets/images/bookImageEmpty.jpg';
 import { PrimaryBtn } from '../../btns-components/primary-btn';
 import { BookSwiper } from '../../swiper';
+import { baseUrl } from '../../../constants/constants';
 
 export function BookDetailsInfo({ ...props }) {
-  const baseUrl = 'https://strapi.cleverland.by';
   const imageUrl = baseUrl.concat(props.image[0].url);
 
   function imagesArray(images) {
@@ -22,7 +20,7 @@ export function BookDetailsInfo({ ...props }) {
         {props.image.length > 1 ? (
           <BookSwiper images={imagesArray(props.image)} />
         ) : (
-          <img src={props.image.length === 1 ? imageUrl : imageEmpty} alt='' />
+          <img src={props.image.length === 1 ? imageUrl : imageEmpty} alt='book main' />
         )}
       </div>
       <div className={styles.mainInfo}>

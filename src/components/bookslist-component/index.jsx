@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { useGetBooksQuery } from '../../redux/slices/api-slice';
 
 import { BookCard } from '../book-component';
-import dataTest from '../../assets/books-data.json';
 
 export function BooksList({ listType }) {
   const { data = [], isLoading } = useGetBooksQuery();

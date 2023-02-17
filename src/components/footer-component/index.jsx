@@ -13,16 +13,16 @@ export function Footer() {
       <div className={styles.footerCopyrite}>© 2020-2023 Cleverland. Все права защищены.</div>
       <div className={styles.footerIcons}>
         <div className={styles.iconWrapper}>
-          <img src={fb} alt='' className='icon' />
+          <img src={fb} alt='facebook' className='icon' />
         </div>
         <div className={styles.iconWrapper}>
-          <img src={inst} alt='' className='icon' />
+          <img src={inst} alt='instagram' className='icon' />
         </div>
         <div className={styles.iconWrapper}>
-          <img src={vk} alt='' className='icon' />
+          <img src={vk} alt='vk' className='icon' />
         </div>
         <div className={styles.iconWrapper}>
-          <img src={linkedin} alt='' className='icon' />
+          <img src={linkedin} alt='linkedin' className='icon' />
         </div>
       </div>
     </footer>

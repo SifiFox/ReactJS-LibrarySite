@@ -49,7 +49,7 @@ export function BookSwiper({ images }) {
       >
         {images.map((image) => (
           <SwiperSlide key={image}>
-            <img src={image} alt='' />
+            <img src={image} alt='book' />
           </SwiperSlide>
         ))}
       </Swiper>

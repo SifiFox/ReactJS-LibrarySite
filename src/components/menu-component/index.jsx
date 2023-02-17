@@ -8,16 +8,15 @@ import styles from './menu-component.module.scss';
 
 import { ProfileNav } from '../profile-nav';
 
-import data from '../../assets/categories.json';
 import { MenuTabLink } from '../menu-tab-link';
-import { setMenuActive, setMenuInnerActive } from '../../redux/slices/menu-slice';
+import { setMenuActive } from '../../redux/slices/menu-slice';
 import { showError } from '../../redux/slices/loader-slice';
 
 export function Menu({ burgerRef }) {
   const { data = [], isLoading, error } = useGetCategoriesQuery();
 
   const [isAuth] = React.useState(true);
-  const { menuActive, burgerActive } = useSelector((state) => state.menu);
+  const { burgerActive } = useSelector((state) => state.menu);
   const dispatch = useDispatch();
   const menuRef = React.useRef();
   const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);

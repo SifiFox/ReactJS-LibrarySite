@@ -5,13 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link, useMatch } from 'react-router-dom';
 import { MenuTabInner } from '../menu-tab-inner';
 
-import {
-  hideMenu,
-  hideInnerMenu,
-  setMenuActive,
-  setMenuInnerActive,
-  showInnerMenu,
-} from '../../redux/slices/menu-slice';
+import { hideInnerMenu, setMenuInnerActive } from '../../redux/slices/menu-slice';
 
 export function MenuTabLink({ to, ...props }) {
   const isError = useSelector((state) => state.loader.isError);

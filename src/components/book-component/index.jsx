@@ -6,6 +6,7 @@ import { Rating } from '../rating-components/rating-list';
 
 import styles from './book-component.module.scss';
 import bookImageEmpty from '../../assets/images/bookImageEmpty.jpg';
+import { baseUrl } from '../../constants/constants';
 
 export function BookCard({ title, rating, year, author, image, booking, listType }) {
   const [isBooked, setIsBooked] = React.useState(false);
@@ -15,8 +16,6 @@ export function BookCard({ title, rating, year, author, image, booking, listType
   if (slicedTitle.length < title.length) {
     slicedTitle += '...';
   }
-
-  const baseUrl = 'https://strapi.cleverland.by';
 
   React.useEffect(() => {
     if (booking) {
@@ -32,14 +31,18 @@ export function BookCard({ title, rating, year, author, image, booking, listType
   return (
     <div data-test-id='card' className={listType === 'square' ? styles.bookSquare : styles.bookLine}>
       <div className={styles.bookImageWrapper}>
-        <img className={styles.bookImage} src={image !== null ? baseUrl.concat(image.url) : bookImageEmpty} alt='' />
+        <img
+          className={styles.bookImage}
+          src={image !== null ? baseUrl.concat(image.url) : bookImageEmpty}
+          alt='book'
+        />
       </div>
 
       <div className={styles.bookContent}>
         {rating <= 0 ? (
           <div className={styles.bookRating}>ещё нет оценок</div>
         ) : (
-          <Rating rating={3} listType={listType} />
+          <Rating rating={rating} listType={listType} />
         )}
 
         <div className={styles.bookTitle}>{slicedTitle}</div>

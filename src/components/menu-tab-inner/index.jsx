@@ -6,11 +6,9 @@ import { setMenuActive } from '../../redux/slices/menu-slice';
 
 import styles from './menu-tab-inner.module.scss';
 
-export function MenuTabInner({ data, showed, defaultActive }) {
+export function MenuTabInner({ data, showed }) {
   const setActive = ({ isActive }) => (isActive ? styles.menuTabRowTitleActive : styles.menuTabRowTitle);
-
   const location = useLocation();
-
   const dispatch = useDispatch();
 
   const [windowWidth, setWindowWidth] = React.useState(window.innerWidth);

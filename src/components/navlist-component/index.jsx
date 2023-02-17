@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -45,7 +45,7 @@ export function NavList({ listType, onClickListType }) {
             className={searchActive ? styles.navListSearchActive : styles.navListSearch}
           >
             <div className={searchActive ? styles.navListActiveSearchIcon : styles.navListSearchIcon}>
-              <img src={iconSearch} alt='' />
+              <img src={iconSearch} alt='sort' />
             </div>
             <div className={searchActive ? styles.searchInputWrapperActive : styles.navListSearchInputWrapper}>
               <label htmlFor='searchId'>
@@ -70,7 +70,7 @@ export function NavList({ listType, onClickListType }) {
           </div>
           <div className={searchActive && window.innerWidth < '768' ? styles.blockHidden : styles.navListSort}>
             <div className={styles.navListSortIcon}>
-              <img src={iconSort} alt='' />
+              <img src={iconSort} alt='sort' />
             </div>
             <div className={styles.navListSearchTitle}>По рейтингу</div>
           </div>

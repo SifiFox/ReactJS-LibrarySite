@@ -16,29 +16,7 @@ import { BookDetailsInfo } from '../../components/book-details/book-details-info
 import { BookDetailsReviews } from '../../components/book-details/book-details-reviews';
 import { hideLoader } from '../../redux/slices/loader-slice';
 
-import dataDemo from '../../assets/books-template.json';
-import dataTest from '../../assets/books-data.json';
-
 export function BookPage() {
-  const paramsList = useParams();
-  // ISBN
-  // authors - array
-  // booking - null
-  // categories - array
-  // comments - array
-  // cover string
-  // delivery - null
-  // description
-  // format string
-  // images - array
-  // issueYear
-  // pages
-  // producer - издательство
-  // publish
-  // rating
-  // title
-  // weight
-
   const bookId = useParams().id;
   const { data = [], isLoading, error } = useGetBookQuery(bookId);
 

@@ -7,9 +7,6 @@ import { StarFilled } from '../rating-filled';
 
 export function Rating({ rating, listType }) {
   const starsArr = [];
-
-  // i <= rating ? starsArr.push(<StarFilled />) :starsArr.push(<StarEmpty />)
-
   for (let i = 0; i < 5; i++) {
     if (i < rating) {
       starsArr.push(<StarFilled key={i} listType={listType} />);
