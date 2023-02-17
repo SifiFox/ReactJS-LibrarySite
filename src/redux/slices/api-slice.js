@@ -7,7 +7,7 @@ export const booksApi = createApi({
   }),
   endpoints: (builder) => ({
     getBooks: builder.query({
-      query: () => '/api/boosks',
+      query: () => '/api/books',
     }),
 
     getBook: builder.query({
