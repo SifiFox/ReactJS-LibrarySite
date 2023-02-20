@@ -1,16 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
-import { useGetBooksQuery } from '../../redux/slices/api-slice';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { BookCard } from '../book-component';
+import { booksSort } from '../../redux/slices/bookslist-slice';
 
 export function BooksList({ listType }) {
-  const { data = [] } = useGetBooksQuery();
+  const books = useSelector((state) => state.booksList.books);
+
+  const dispatch = useDispatch;
+
+  React.useEffect(() => {
+    dispatch(booksSort());
+  }, [books, dispatch]);
 
   return (
     <React.Fragment>
-      {data.map((book) => (
+      {books.map((book) => (
         <Link key={book.id} to={`/books/all/${book.id}`}>
           <BookCard
             key={book.id}

@@ -12,6 +12,7 @@ import { Footer } from '../../components/footer-component';
 import { Preloader } from '../../components/preload-component';
 import { Error } from '../../components/error-component';
 import { hideLoader, showError } from '../../redux/slices/loader-slice';
+import { setBooksList } from '../../redux/slices/bookslist-slice';
 
 export function MainPage() {
   const isError = useSelector((state) => state.loader.isError);
@@ -34,6 +35,7 @@ export function MainPage() {
 
     if (!isLoading) {
       dispatch(hideLoader());
+      dispatch(setBooksList(data));
     }
 
     if (error) {
