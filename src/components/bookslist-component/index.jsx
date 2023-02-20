@@ -6,7 +6,7 @@ import { useGetBooksQuery } from '../../redux/slices/api-slice';
 import { BookCard } from '../book-component';
 
 export function BooksList({ listType }) {
-  const { data = [], isLoading } = useGetBooksQuery();
+  const { data = [] } = useGetBooksQuery();
 
   return (
     <React.Fragment>
