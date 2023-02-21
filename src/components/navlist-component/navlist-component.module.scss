@@ -7,6 +7,10 @@
   justify-content: space-between;
 }
 
+.sortDesc {
+  transform: rotate(180deg);
+}
+
 .navListSearch {
   display: flex;
   align-items: center;

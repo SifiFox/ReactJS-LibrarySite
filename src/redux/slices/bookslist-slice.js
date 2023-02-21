@@ -1,19 +1,21 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  books: [],
+  booksList: [],
+  sortAsc: true,
 };
 
 const booksListSlice = createSlice({
-  name: 'books',
+  name: 'booksList',
   initialState,
   reducers: {
     setBooksList(state, action) {
-      state.books = action.payload;
+      state.booksList = action.payload;
     },
 
     booksSort(state) {
-      console.log(state.books);
+      state.sortAsc = !state.sortAsc;
+      console.log(state.sortAsc);
     },
   },
 });

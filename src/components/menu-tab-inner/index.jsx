@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { NavLink, useLocation } from 'react-router-dom';
 import { setMenuActive } from '../../redux/slices/menu-slice';
 
@@ -8,6 +8,9 @@ import styles from './menu-tab-inner.module.scss';
 
 export function MenuTabInner({ data, showed }) {
   const setActive = ({ isActive }) => (isActive ? styles.menuTabRowTitleActive : styles.menuTabRowTitle);
+  const booksList = useSelector((state) => state.booksList.booksList);
+  const categoriesList = useSelector((state) => state.categoriesList.categoriesList);
+
   const location = useLocation();
   const dispatch = useDispatch();
 
@@ -15,14 +18,20 @@ export function MenuTabInner({ data, showed }) {
   const handleResize = () => {
     setWindowWidth(window.innerWidth);
   };
+
   React.useEffect(() => {
     window.addEventListener('resize', handleResize, false);
-  }, [location, data]);
+  }, []);
 
   const handleClickMenuItem = () => {
     if (windowWidth <= 768) {
       dispatch(setMenuActive());
     }
+  };
+
+  const getCountByCategory = (category) => {
+    const filtredByCategory = booksList.filter((book) => book.categories.includes(category.name));
+    return filtredByCategory.length;
   };
 
   return (
@@ -48,7 +57,7 @@ export function MenuTabInner({ data, showed }) {
                 className={setActive}
               >
                 <span className={styles.categoryName}>{category.name}</span>
-                <span className={styles.menuTabRowCount}>10</span>
+                <span className={styles.menuTabRowCount}>{getCountByCategory(category)}</span>
               </NavLink>
             </li>
           ))}

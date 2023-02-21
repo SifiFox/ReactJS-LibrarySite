@@ -11,6 +11,7 @@ import { ProfileNav } from '../profile-nav';
 import { MenuTabLink } from '../menu-tab-link';
 import { setMenuActive } from '../../redux/slices/menu-slice';
 import { showError } from '../../redux/slices/loader-slice';
+import { setCategoriesList } from '../../redux/slices/categories-slice';
 
 export function Menu({ burgerRef }) {
   const { data = [], isLoading, error } = useGetCategoriesQuery();
@@ -39,12 +40,14 @@ export function Menu({ burgerRef }) {
     if (!isLoading) {
       if (error) {
         dispatch(showError());
+      } else {
+        dispatch(setCategoriesList(data));
       }
     }
 
     document.body.addEventListener('click', handleClickOutside);
     return () => document.body.removeEventListener('click', handleClickOutside);
-  }, [burgerActive, burgerRef, dispatch, isLoading, error]);
+  }, [burgerActive, burgerRef, dispatch, isLoading, error, data]);
 
   return (
     <div
