@@ -56,7 +56,7 @@ export function BooksList({ listType }) {
   return (
     <React.Fragment>
       {sortBooks(filtredBooks(), sort).map((book) => (
-        <Link key={book.id} to={`/books/all/${book.id}`}>
+        <Link key={book.id} to={`/books/${currentCategory}/${book.id}`}>
           <BookCard
             key={book.id}
             title={book.title}

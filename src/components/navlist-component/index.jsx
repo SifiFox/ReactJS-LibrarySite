@@ -15,7 +15,9 @@ export function NavList({ listType, onClickListType }) {
     onClickListType(type);
   };
   const { searchActive } = useSelector((state) => state.search);
+
   const sort = useSelector((state) => state.booksList.sortAsc);
+  const search = useSelector((state) => state.search.searchValue);
 
   const dispatch = useDispatch();
   function onClickSearch(e) {
