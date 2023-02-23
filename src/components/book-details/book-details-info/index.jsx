@@ -24,7 +24,9 @@ export function BookDetailsInfo({ ...props }) {
         )}
       </div>
       <div className={styles.mainInfo}>
-        <div className={styles.title}>{props.title}</div>
+        <div data-test-id='book-title' className={styles.title}>
+          {props.title}
+        </div>
         <div className={styles.author}>
           {props.author}, {props.year}
         </div>

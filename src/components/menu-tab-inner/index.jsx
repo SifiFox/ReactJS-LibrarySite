@@ -39,25 +39,37 @@ export function MenuTabInner({ data, showed }) {
       <ul>
         <li className={styles.menuTabRow}>
           <NavLink onClick={handleClickMenuItem} to='/books/all' className={setActive}>
-            <span className={styles.categoryName}>Все книги</span>
+            <span
+              data-test-id={windowWidth > 768 ? `navigation-books` : windowWidth <= 768 && `burger-books`}
+              className={styles.categoryName}
+            >
+              Все книги
+            </span>
           </NavLink>
         </li>
 
         {data &&
           data.map((category) => (
             <li key={category.id} className={styles.menuTabRow}>
-              <NavLink
-                data-test-id={
-                  category.type === 'all' && windowWidth > 768
-                    ? 'navigation-books'
-                    : category.type === 'all' && windowWidth <= 768 && 'burger-books'
-                }
-                onClick={handleClickMenuItem}
-                to={`/books/${category.path}`}
-                className={setActive}
-              >
-                <span className={styles.categoryName}>{category.name}</span>
-                <span className={styles.menuTabRowCount}>{getCountByCategory(category)}</span>
+              <NavLink onClick={handleClickMenuItem} to={`/books/${category.path}`} className={setActive}>
+                <span
+                  data-test-id={
+                    windowWidth > 768 ? `navigation-${category.path}` : windowWidth <= 768 && `burger-${category.path}`
+                  }
+                  className={styles.categoryName}
+                >
+                  {category.name}
+                </span>
+                <span
+                  data-test-id={
+                    windowWidth > 768
+                      ? `navigation-book-count-for-${category.path}`
+                      : windowWidth <= 768 && `burger-book-count-for-${category.path}`
+                  }
+                  className={styles.menuTabRowCount}
+                >
+                  {getCountByCategory(category)}
+                </span>
               </NavLink>
             </li>
           ))}

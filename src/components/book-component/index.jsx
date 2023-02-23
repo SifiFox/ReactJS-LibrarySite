@@ -8,14 +8,16 @@ import styles from './book-component.module.scss';
 import bookImageEmpty from '../../assets/images/bookImageEmpty.jpg';
 import { baseUrl } from '../../constants/constants';
 
-export function BookCard({ title, rating, year, author, image, booking, listType }) {
+export function BookCard({ title, rating, year, author, image, booking, listType, markedTitle }) {
   const [isBooked, setIsBooked] = React.useState(false);
   const [dateString, setDateString] = React.useState(null);
 
-  let slicedTitle = title.slice(0, 40);
-  if (slicedTitle.length < title.length) {
-    slicedTitle += '...';
-  }
+  console.log(markedTitle);
+
+  // let slicedTitle = markedTitle.slice(0, 40);
+  // if (slicedTitle.length < title.length) {
+  //   slicedTitle += '...';
+  // }
 
   React.useEffect(() => {
     if (booking) {
@@ -45,7 +47,7 @@ export function BookCard({ title, rating, year, author, image, booking, listType
           <Rating rating={rating} listType={listType} />
         )}
 
-        <div className={styles.bookTitle}>{slicedTitle}</div>
+        <div data-test-id='book-title' className={styles.bookTitle} dangerouslySetInnerHTML={{ __html: markedTitle }} />
 
         <div className={styles.bookAuthor}>
           {author}, {year}

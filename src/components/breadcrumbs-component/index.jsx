@@ -36,10 +36,14 @@ export function Breadcrumbs({ title }) {
       <div className={styles.breadcrumbsContent}>
         <ul className={styles.breadcrumbsList}>
           <li className={styles.breadcrumb}>
-            <Link to={linkPrev}>{categoryName}</Link>
+            <Link data-test-id='breadcrumbs-link' to={linkPrev}>
+              {categoryName}
+            </Link>
           </li>
           <li className={styles.breadcrumb}>
-            <Link to='#'>{title}</Link>
+            <Link data-test-id='book-name' to='#'>
+              {title}
+            </Link>
           </li>
         </ul>
       </div>

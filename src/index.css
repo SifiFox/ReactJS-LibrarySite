@@ -112,6 +112,10 @@ html {
   position: relative;
 }
 
+b {
+  color: rgba(255, 82, 83, 1);
+}
+
 @media (max-width: 768px) {
   .h3 {
     font-size: 3.2rem;
