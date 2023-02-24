@@ -12,13 +12,6 @@ export function BookCard({ title, rating, year, author, image, booking, listType
   const [isBooked, setIsBooked] = React.useState(false);
   const [dateString, setDateString] = React.useState(null);
 
-  console.log(markedTitle);
-
-  // let slicedTitle = markedTitle.slice(0, 40);
-  // if (slicedTitle.length < title.length) {
-  //   slicedTitle += '...';
-  // }
-
   React.useEffect(() => {
     if (booking) {
       setIsBooked(true);

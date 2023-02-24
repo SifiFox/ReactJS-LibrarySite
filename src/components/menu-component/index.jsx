@@ -80,7 +80,6 @@ export function Menu({ burgerRef }) {
           menuActiveInnerContent={styles.menuActiveInnerContent}
           menuHideInnerContent={styles.menuHideInnerContent}
           title='Правила пользования'
-          innerItems=''
         />
 
         <MenuTabLink
@@ -92,7 +91,6 @@ export function Menu({ burgerRef }) {
           menuActiveInnerContent={styles.menuActiveInnerContent}
           menuHideInnerContent={styles.menuHideInnerContent}
           title='Договор оферты'
-          innerItems=''
         />
 
         {isAuth && <ProfileNav />}

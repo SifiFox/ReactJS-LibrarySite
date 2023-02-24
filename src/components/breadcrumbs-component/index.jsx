@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 
 import { useGetCategoriesQuery } from '../../redux/slices/api-slice';
-import { setCategoriesList } from '../../redux/slices/categories-slice';
 
 import { baseBooksUrl } from '../../constants/constants';
 import styles from './breadcrumbs.module.scss';
@@ -17,7 +16,7 @@ export function Breadcrumbs({ title }) {
 
   const linkPrev = baseBooksUrl + currentPrevCategory;
 
-  const { data = [], isLoading, error } = useGetCategoriesQuery();
+  const { data = [], isLoading } = useGetCategoriesQuery();
 
   React.useEffect(() => {
     if (!isLoading) {

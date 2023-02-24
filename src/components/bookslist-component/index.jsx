@@ -1,10 +1,9 @@
 import React from 'react';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { BookCard } from '../book-component';
 import { SearchEmpty } from '../search-empty-component';
-// import { booksSort } from '../../redux/slices/bookslist-slice';
 
 export function BooksList({ listType }) {
   const books = useSelector((state) => state.booksList.booksList);

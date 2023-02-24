@@ -32,7 +32,6 @@ export function NavList({ listType, onClickListType }) {
   function onClickClose(e) {
     e.stopPropagation();
     dispatch(hideSearch());
-    // dispatch(setSearchValue(''));
   }
   const handleResize = () => {
     setWindowWidth(window.innerWidth);

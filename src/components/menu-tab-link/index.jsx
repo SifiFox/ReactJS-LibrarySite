@@ -66,10 +66,8 @@ export function MenuTabLink({ to, ...props }) {
         {props.title}
       </Link>
 
-      {props.innerItems && innerMenuActive && !isError ? (
+      {props.innerItems && innerMenuActive && !isError && (
         <MenuTabInner showed={true} defaultActive={props.innerItems[0]} data={props.innerItems} />
-      ) : (
-        <MenuTabInner data={props.innerItems} showed={false} />
       )}
     </div>
   );
