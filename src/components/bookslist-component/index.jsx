@@ -80,7 +80,6 @@ export function BooksList({ listType }) {
     } else {
       setEmptyText({ text: 'В этой категории книг ещё нет', testId: 'empty-category' });
     }
-    // }, [books, sort, searchedBooks, search, filtredBooks]);
   }, [search.length]);
 
   return (

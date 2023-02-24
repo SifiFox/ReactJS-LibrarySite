@@ -24,7 +24,6 @@ export function MainPage() {
   const navigate = useNavigate();
 
   const { data = [], refetch, isLoading, error } = useGetBooksQuery();
-  // refetch();
 
   React.useEffect(() => {
     dispatch(showLoader());

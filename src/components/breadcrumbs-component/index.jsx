@@ -20,7 +20,6 @@ export function Breadcrumbs({ title }) {
 
   React.useEffect(() => {
     if (!isLoading) {
-      console.log(currentPrevCategory);
       if (currentPrevCategory === 'all') {
         setCategoryName('Все книги');
       } else {

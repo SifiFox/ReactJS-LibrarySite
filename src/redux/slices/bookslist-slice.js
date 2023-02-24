@@ -15,7 +15,6 @@ const booksListSlice = createSlice({
 
     booksSort(state) {
       state.sortAsc = !state.sortAsc;
-      console.log(state.sortAsc);
     },
   },
 });
