@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { useGetBookQuery } from '../../redux/slices/api-slice';
 
@@ -22,13 +22,11 @@ export function BookPage() {
 
   const dispatch = useDispatch();
 
-  const isLoad = useSelector((state) => state.loader.isLoad);
-
   React.useEffect(() => {
     if (!isLoading) {
       dispatch(hideLoader());
     }
-  }, [isLoading, dispatch, isLoad]);
+  }, [isLoading, dispatch]);
 
   return (
     <>
@@ -38,7 +36,7 @@ export function BookPage() {
         {error && <Error />}
 
         <Header />
-        {!isLoading && !error && <Breadcrumbs category={data.categories} title={data.title} />}
+        {!isLoading && !error && <Breadcrumbs title={data.title} />}
         <div className='book-details__content'>
           {!isLoading && !error && (
             <BookDetailsInfo

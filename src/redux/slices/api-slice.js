@@ -5,9 +5,11 @@ export const booksApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://strapi.cleverland.by',
   }),
+  tagTypes: ['books'],
   endpoints: (builder) => ({
     getBooks: builder.query({
       query: () => '/api/books',
+      providesTags: ['books'],
     }),
 
     getBook: builder.query({

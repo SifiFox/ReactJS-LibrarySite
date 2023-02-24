@@ -5,17 +5,24 @@ import { useSelector, useDispatch } from 'react-redux';
 import styles from './navlist-component.module.scss';
 
 import iconSearch from '../../assets/icons/iconSearch.svg';
+import iconSearchActive from '../../assets/icons/searchSvg.svg';
 import iconSort from '../../assets/icons/iconSort.svg';
-import { showSearch, hideSearch } from '../../redux/slices/search-slice';
+import { showSearch, hideSearch, setSearchValue } from '../../redux/slices/search-slice';
+import { booksSort } from '../../redux/slices/bookslist-slice';
 
 export function NavList({ listType, onClickListType }) {
   const [windowWidth, setWindowWidth] = React.useState(React.useRef(window.innerWidth));
   const setActiveBtn = (type) => {
     onClickListType(type);
   };
+
   const { searchActive } = useSelector((state) => state.search);
+  const sort = useSelector((state) => state.booksList.sortAsc);
 
   const dispatch = useDispatch();
+
+  const [search, setSearch] = React.useState('');
+
   function onClickSearch(e) {
     e.stopPropagation();
     if (windowWidth.current < 768) {
@@ -30,9 +37,27 @@ export function NavList({ listType, onClickListType }) {
     setWindowWidth(window.innerWidth);
   };
 
+  const onClickSort = () => {
+    dispatch(booksSort());
+  };
+
+  const onChangeSearch = (e) => {
+    setSearch(e);
+    dispatch(setSearchValue(e));
+  };
+
+  const [inputFocus, setInputFocus] = React.useState(false);
+
+  const handleFocus = () => {
+    setInputFocus(true);
+  };
+  const handleBlur = () => {
+    setInputFocus(false);
+  };
+
   React.useEffect(() => {
     window.addEventListener('resize', handleResize, false);
-  }, []);
+  }, [sort]);
 
   return (
     <div className={styles.root}>
@@ -45,7 +70,11 @@ export function NavList({ listType, onClickListType }) {
             className={searchActive ? styles.navListSearchActive : styles.navListSearch}
           >
             <div className={searchActive ? styles.navListActiveSearchIcon : styles.navListSearchIcon}>
-              <img src={iconSearch} alt='sort' />
+              <img
+                className={inputFocus ? styles.searchFocusIcon : styles.searchBlurIcon}
+                src={inputFocus ? iconSearchActive : iconSearch}
+                alt='search'
+              />
             </div>
             <div className={searchActive ? styles.searchInputWrapperActive : styles.navListSearchInputWrapper}>
               <label htmlFor='searchId'>
@@ -56,6 +85,10 @@ export function NavList({ listType, onClickListType }) {
                   placeholder='Поиск книги или автора…'
                   className={styles.navListSearchInput}
                   data-test-id='input-search'
+                  value={search}
+                  onFocus={handleFocus}
+                  onBlur={handleBlur}
+                  onChange={(e) => onChangeSearch(e.target.value)}
                 />
                 <button
                   type='button'
@@ -68,9 +101,14 @@ export function NavList({ listType, onClickListType }) {
               </label>
             </div>
           </div>
-          <div className={searchActive && window.innerWidth < '768' ? styles.blockHidden : styles.navListSort}>
+          <div
+            role='presentation'
+            onClick={onClickSort}
+            data-test-id='sort-rating-button'
+            className={searchActive && window.innerWidth < '768' ? styles.blockHidden : styles.navListSort}
+          >
             <div className={styles.navListSortIcon}>
-              <img src={iconSort} alt='sort' />
+              <img className={sort ? styles.sortAsc : styles.sortDesc} src={iconSort} alt='sort' />
             </div>
             <div className={styles.navListSearchTitle}>По рейтингу</div>
           </div>

@@ -11,7 +11,8 @@ import { Books } from '../../components/books-component';
 import { Footer } from '../../components/footer-component';
 import { Preloader } from '../../components/preload-component';
 import { Error } from '../../components/error-component';
-import { hideLoader, showError } from '../../redux/slices/loader-slice';
+import { hideLoader, showLoader, showError } from '../../redux/slices/loader-slice';
+import { setBooksList } from '../../redux/slices/bookslist-slice';
 
 export function MainPage() {
   const isError = useSelector((state) => state.loader.isError);
@@ -22,9 +23,12 @@ export function MainPage() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { data = [], isLoading, error } = useGetBooksQuery();
+  const { data = [], refetch, isLoading, error } = useGetBooksQuery();
 
   React.useEffect(() => {
+    dispatch(showLoader());
+    refetch();
+
     if (location.pathname === '/') {
       navigate('/books/all');
     }
@@ -34,12 +38,13 @@ export function MainPage() {
 
     if (!isLoading) {
       dispatch(hideLoader());
+      dispatch(setBooksList(data));
     }
 
     if (error) {
       dispatch(showError());
     }
-  }, [location, navigate, isLoading, dispatch, error, data]);
+  }, [location, navigate, isLoading, dispatch, error, data, refetch]);
 
   return (
     <>
