@@ -6,6 +6,7 @@ import { menu } from './slices/menu-slice';
 import { search } from './slices/search-slice';
 import { booksList } from './slices/bookslist-slice';
 import { categoriesList } from './slices/categories-slice';
+import { auth } from './slices/auth-slice';
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
     loader,
     booksList,
     categoriesList,
+    auth,
     [booksApi.reducerPath]: booksApi.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(booksApi.middleware),

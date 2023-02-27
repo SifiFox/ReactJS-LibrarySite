@@ -45,6 +45,7 @@
     "prettier-eslint": "^14.0.2",
     "prettier-eslint-cli": "^5.0.1",
     "react-redux": "^8.0.5",
+    "react-hook-form": "^7.43.2",
     "sass": "^1.57.1",
     "start-server-and-test": "^1.14.0",
     "stylelint": "^14.8.1",

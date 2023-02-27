@@ -1,8 +1,13 @@
-import React from 'react';
+import { AuthForm } from '../../components/forms/auth-form';
+import styles from './auth-page.module.scss';
 
-import { useParams } from 'react-router-dom';
-
-import { useDispatch } from 'react-redux';
 export function AuthPage() {
-  return <div>Auth</div>;
+  return (
+    <div className={styles.root}>
+      <div className={styles.authTitle}>Cleverland</div>
+      <div className={styles.formWrapper}>
+        <AuthForm />
+      </div>
+    </div>
+  );
 }

@@ -9,6 +9,7 @@ import { MainPage } from './pages/main';
 import { BookPage } from './pages/book';
 import { ContractPage } from './pages/contract';
 import { TermsPage } from './pages/terms';
+import { AuthPage } from './pages/auth';
 
 import './index.css';
 
@@ -21,6 +22,9 @@ root.render(
         <Routes>
           <Route path='/all' element={<MainPage />} />
           <Route path='/books' element={<MainPage />} />
+          <Route path='/auth' element={<AuthPage />} />
+          <Route path='/registration' element={<AuthPage />} />
+          <Route path='/forgot-pass' element={<AuthPage />} />
           <Route path='/books/:category/:id' element={<BookPage />} />
           <Route path='/contract' element={<ContractPage />} />
           <Route path='/terms' element={<TermsPage />} />
