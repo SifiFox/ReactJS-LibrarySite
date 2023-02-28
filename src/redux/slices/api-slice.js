@@ -8,7 +8,7 @@ export const booksApi = createApi({
       const {
         auth: { jwt, user },
       } = getState();
-      headers.set('Authorization', jwt ? `Bearer${jwt}` : '');
+      headers.set('Authorization', jwt ? `Bearer ${jwt}` : '');
       return headers;
     },
   }),
@@ -32,6 +32,10 @@ export const booksApi = createApi({
         },
         url: '/api/auth/local',
         method: 'POST',
+        // body: {
+        //   identifier: 'sififox',
+        //   password: 'lolka551',
+        // },
         body: user,
       }),
     }),

@@ -1,4 +1,4 @@
-.root {
+.wrapper {
   width: 100vw;
   height: 100vh;
   background: linear-gradient(231.58deg, #f83600 -53.35%, #f9d423 297.76%);
@@ -24,6 +24,7 @@
   background: #ffffff;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  width: 52.8rem;
 }

@@ -13,6 +13,7 @@ import { Preloader } from '../../components/preload-component';
 import { Error } from '../../components/error-component';
 import { hideLoader, showLoader, showError } from '../../redux/slices/loader-slice';
 import { setBooksList } from '../../redux/slices/bookslist-slice';
+import { hideMenu } from '../../redux/slices/menu-slice';
 
 export function MainPage() {
   const isError = useSelector((state) => state.loader.isError);
@@ -29,6 +30,10 @@ export function MainPage() {
     dispatch(showLoader());
     refetch();
 
+    if (!sessionStorage.getItem('jwt') || sessionStorage.getItem('jwt') === 'null') {
+      navigate('/auth');
+      return;
+    }
     if (location.pathname === '/') {
       navigate('/books/all');
     }
