@@ -1,0 +1,36 @@
+.wrapper {
+  composes: wrapper from '../reg-auth.module.scss';
+}
+
+.authTitle {
+  composes: authTitle from '../reg-auth.module.scss';
+}
+
+.formWrapper {
+  composes: formWrapper from '../reg-auth.module.scss';
+}
+
+.formWrapperLayout {
+  composes: formWrapperLayout from '../reg-auth.module.scss';
+}
+
+.registerLink {
+  display: flex;
+  gap: 1.2rem;
+
+  img {
+    max-width: 1.8rem;
+    transform: rotate(180deg);
+  }
+}
+
+.moveBack {
+  width: 100%;
+  height: 6.4rem;
+  background: #f9f9fa;
+  border-radius: 16px 16px 0px 0px;
+  display: flex;
+  align-items: center;
+  padding-left: 1.6rem;
+  margin-bottom: 1.6rem;
+}

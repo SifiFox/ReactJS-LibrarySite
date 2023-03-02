@@ -125,10 +125,17 @@ form {
   mix-blend-mode: normal;
 }
 
-.hint {
+.hintError {
   font-weight: 500;
   font-size: 1.2rem;
   line-height: 1.6rem;
   letter-spacing: 0.02rem;
   color: #f42c4f;
+}
+.hint {
+  font-weight: 500;
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+  letter-spacing: 0.02rem;
+  color: #727272;
 }

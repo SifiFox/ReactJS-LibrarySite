@@ -1,22 +1,31 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setMenuActive } from '../../redux/slices/menu-slice';
+import { hideMenu, setMenuActive } from '../../redux/slices/menu-slice';
 
 import styles from './header-component.module.scss';
 
 import logo from '../../assets/images/brand.svg';
 import avatar from '../../assets/images/avatar.jpg';
+import { logOut } from '../../redux/slices/auth-slice';
 
 export function Header({ burgerRef }) {
+  const [profileModalActive, setProfileModalActive] = React.useState(false);
   const { burgerActive } = useSelector((state) => state.menu);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   function toggleBurger() {
     dispatch(setMenuActive());
   }
+
+  const handleClickLogout = () => {
+    dispatch(logOut());
+    dispatch(hideMenu());
+    navigate('/auth');
+  };
 
   return (
     <header className={styles.root}>
@@ -38,10 +47,17 @@ export function Header({ burgerRef }) {
         <div className='title h3'>Библиотека</div>
       </div>
       <div className='headerRightSide'>
-        <div className={styles.profile}>
+        <div role='presentation' onClick={() => setProfileModalActive(!profileModalActive)} className={styles.profile}>
           <div className={styles.profileDesc}>Привет, Иван!</div>
           <div className={styles.profileImageWrapper}>
             <img src={avatar} alt='avatar' />
+          </div>
+
+          <div className={profileModalActive ? styles.profileModal : styles.hide}>
+            <span>Профиль</span>
+            <span role='presentation' onClick={handleClickLogout}>
+              Выход
+            </span>
           </div>
         </div>
       </div>

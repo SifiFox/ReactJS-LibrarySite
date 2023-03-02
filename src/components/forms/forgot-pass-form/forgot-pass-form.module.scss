@@ -8,7 +8,6 @@
 
 .inputSubmit {
   composes: inputSubmit from '../forms.module.scss';
-  width: 41rem;
 }
 
 .inputWrapper {
@@ -38,20 +37,26 @@
   composes: hint from '../forms.module.scss';
 }
 
-.errorFormContent {
+.registerRow {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 4.8rem;
+  gap: 1.6rem;
+  span {
+    color: #727272;
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+  }
 }
 
-.errorSubtitle {
-  font-weight: 400;
-  font-size: 1.6rem;
-  line-height: 2.4rem;
+.registerLink {
+  font-weight: 600;
+  letter-spacing: 0.02rem;
+  text-transform: uppercase;
+  color: #363636;
   display: flex;
   align-items: center;
-  text-align: center;
-  letter-spacing: 0.01rem;
-  color: #363636;
+  gap: 1.2rem;
+  img {
+    max-width: 1.8rem;
+  }
 }

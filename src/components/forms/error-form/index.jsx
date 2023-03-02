@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import styles from './error-form.module.scss';
 
-export function ErrorForm({ handleAuthError }) {
+export function ErrorForm({ handleAuthError, buttonText, title, subtitle }) {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -14,14 +14,16 @@ export function ErrorForm({ handleAuthError }) {
   return (
     <div className={styles.errorFormContent}>
       <div className={styles.authTitle}>
-        <span>Вход в личный кабинет</span>
+        <span>{title}</span>
       </div>
 
-      <span className={styles.errorSubtitle}>Что-то пошло не так. Попробуйте ещё раз</span>
+      <span className={styles.errorSubtitle}>{subtitle}</span>
 
-      <button type='submit' onClick={handleClick} className={styles.inputSubmit}>
-        повторить
-      </button>
+      {buttonText && (
+        <button type='submit' onClick={handleClick} className={styles.inputSubmit}>
+          {buttonText}
+        </button>
+      )}
     </div>
   );
 }

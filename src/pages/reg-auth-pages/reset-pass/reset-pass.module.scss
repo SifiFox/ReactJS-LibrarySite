@@ -1,0 +1,11 @@
+.wrapper {
+  composes: wrapper from '../reg-auth.module.scss';
+}
+
+.authTitle {
+  composes: authTitle from '../reg-auth.module.scss';
+}
+
+.formWrapper {
+  composes: formWrapper from '../reg-auth.module.scss';
+}

@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import { AuthForm } from '../../components/forms/auth-form';
-import { ErrorForm } from '../../components/forms/error-form';
-import { Preloader } from '../../components/preload-component';
+import { AuthForm } from '../../../components/forms/auth-form';
+import { ErrorForm } from '../../../components/forms/error-form';
+import { Preloader } from '../../../components/preload-component';
 import styles from './auth-page.module.scss';
 
 export function AuthPage() {
@@ -30,12 +30,20 @@ export function AuthPage() {
       {isLoad && <Preloader />}
       <div className={styles.wrapper}>
         <div className={styles.authTitle}>Cleverland</div>
-        <div className={styles.formWrapper}>
-          {!authError ? (
-            <AuthForm handleAuthError={handleAuthError} />
-          ) : (
-            <ErrorForm handleAuthError={handleAuthError} />
-          )}
+
+        <div className={styles.formWrapperLayout}>
+          <div className={styles.formWrapper}>
+            {!authError ? (
+              <AuthForm handleAuthError={handleAuthError} />
+            ) : (
+              <ErrorForm
+                title='Вход не выполнен'
+                subtitle='Что-то пошло не так. Попробуйте еще раз'
+                buttonText='повторить'
+                handleAuthError={handleAuthError}
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>

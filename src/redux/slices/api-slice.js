@@ -32,14 +32,37 @@ export const booksApi = createApi({
         },
         url: '/api/auth/local',
         method: 'POST',
-        // body: {
-        //   identifier: 'sififox',
-        //   password: 'lolka551',
-        // },
         body: user,
+      }),
+    }),
+    forgotPassword: builder.mutation({
+      query: (userEmail) => ({
+        headers: {
+          'Content-type': 'application/json',
+        },
+        url: '/api/auth/forgot-password',
+        method: 'POST',
+        body: userEmail,
+      }),
+    }),
+    registration: builder.mutation({
+      query: (registrationData) => ({
+        headers: {
+          'Content-type': 'application/json',
+        },
+        url: '/api/auth/local/register',
+        method: 'POST',
+        body: registrationData,
       }),
     }),
   }),
 });
 
-export const { useGetBooksQuery, useGetBookQuery, useGetCategoriesQuery, useUserLoginMutation } = booksApi;
+export const {
+  useGetBooksQuery,
+  useGetBookQuery,
+  useGetCategoriesQuery,
+  useUserLoginMutation,
+  useForgotPasswordMutation,
+  useRegistrationMutation,
+} = booksApi;
