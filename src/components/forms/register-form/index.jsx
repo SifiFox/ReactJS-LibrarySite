@@ -1,8 +1,11 @@
 import React from 'react';
 
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { expressions } from '../../../constants/constants';
+
+import { userSchemaStage1 } from '../../../validations/user-validation';
 
 import styles from './register-form.module.scss';
 
@@ -16,41 +19,59 @@ export function RegisterForm() {
   const [isShowed, setIsShowed] = React.useState(false);
   const [buttonAvaliable, setButtonAvaliable] = React.useState(false);
 
-  const loginPattern = /^(?=^.{1,}$)((?=.*\d)(?=.*[a-zA-Z]))[0-9a-zA-Z]*$/;
-  const passowrdPattern = /(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{8,}/;
+  const [isBlur, setIsBlur] = React.useState(true);
 
-  const handleRegistration = async (userData) => {
-    console.log('handleRegister');
-
-    // const userData = await userLogin(user);
-    // if (userData.error) {
-    //   console.log(userData);
-    // } else {
-    //   dispatch(setToken(userData));
-    // }
+  const stepBtnTitle = () => {
+    if (step === 1) {
+      return 'следующий шаг';
+    }
+    if (step === 2) {
+      return 'последний шаг';
+    }
+    return 'зарегистрироваться';
   };
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm();
+    formState: { errors, isValid },
+  } = useForm({
+    resolver: yupResolver(userSchemaStage1),
+    mode: 'all',
+    reValidateMode: 'onBlur',
+    criteriaMode: 'all',
+  });
 
-  const onSubmit = (registrationData) => handleRegistration(registrationData);
-
-  const modifyString = (str, type) => {
-    switch (type) {
-      case 'login':
-        console.log('login');
-        break;
-      case 'password':
-        console.log('password');
-        break;
-      case 'phone':
-        console.log('phone');
-        break;
-    }
+  const handleBlur = (e) => {
+    console.log(errors);
+    console.log('test');
+    setIsBlur(true);
   };
+
+  const submitForm = (registrationData) => {
+    console.log(registrationData);
+    setStep((prev) => prev + 1);
+  };
+
+  const loginRef = React.useRef('login');
+  const passRef = React.useRef('password');
+  const loginStr = 'Используйте для логина латинский алфавит и цифры';
+  const passwordStr = 'Пароль не менее 8 символов, с заглавной буквой и цифрой';
+
+  function modifyStr(str, match) {
+    return str.replace(match, `<b>${match}</b>`);
+  }
+  function replacedString(str, matches) {
+    let newStr = str;
+    if (typeof matches !== 'string') {
+      matches.forEach((match) => {
+        newStr = modifyStr(newStr, match);
+      });
+      return <span className={styles.hint} dangerouslySetInnerHTML={{ __html: newStr }} />;
+    }
+    const res = str.replace(matches, `<b>${matches}</b>`);
+    return <span className={styles.hint} dangerouslySetInnerHTML={{ __html: res }} />;
+  }
 
   return (
     <>
@@ -58,62 +79,52 @@ export function RegisterForm() {
         <span>Регистрация</span>
       </div>
       <div className={styles.stepTitle}>{step} шаг из 3</div>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(submitForm)}>
         {step === 1 && (
           <>
             <div className={styles.inputWrapper}>
               <input
-                placeholder='Придумайте логин для входа'
-                className={errors.identifier || localError === 400 ? styles.inputTextError : styles.inputText}
-                {...register('identifier', {
-                  required: 'Поле не может быть пустым',
-                  minLength: {
-                    value: 2,
-                    message: 'Минимальная длина 2 символа',
-                  },
-                  pattern: {
-                    value: loginPattern,
-                    message: `Используйте для логина латинский алфавит и цифры`,
-                  },
-                })}
+                ref={loginRef}
+                placeholder='Логин'
+                className={errors.login || localError === 400 ? styles.inputTextError : styles.inputText}
+                name='login'
+                {...register('login')}
+                onFocus={() => setIsBlur(false)}
+                onBlur={(e) => handleBlur(e)}
               />
-              <label className={styles.inputLabel} htmlFor='identifier'>
-                Придумайте логин для входа
+              <label className={styles.inputLabel} htmlFor='login'>
+                Логин
               </label>
+              {errors.login?.types.matches && !isBlur ? replacedString(loginStr, errors.login.types.matches) : null}
 
-              {errors.identifier && <p className={styles.errorMessage}>{errors.identifier.message}</p>}
-              {!errors.identifier && (
-                <span className={styles.hint}>Используйте для логина латинский алфавит и цифры</span>
+              {errors.login ? (
+                isBlur && <span className={styles.errorMessage}>{loginStr}</span>
+              ) : (
+                <span className={styles.hint}>{loginStr}</span>
               )}
             </div>
+
             <div className={styles.inputWrapper}>
               <input
-                type={isShowed ? 'text' : 'password'}
+                ref={passRef}
                 placeholder='Пароль'
                 className={errors.password || localError === 400 ? styles.inputTextError : styles.inputText}
-                {...register('password', {
-                  required: 'Поле не может быть пустым',
-                  minLength: {
-                    value: 2,
-                    message: 'Минимальная длина 2 символа',
-                  },
-                  pattern: {
-                    value: passowrdPattern,
-                    message: 'Пароль не менее 8 символов, с заглавной буквой и цифрой',
-                  },
-                })}
+                name='password'
+                {...register('password')}
+                onFocus={() => setIsBlur(false)}
+                onBlur={(e) => handleBlur(e)}
               />
               <label className={styles.inputLabel} htmlFor='password'>
                 Пароль
               </label>
+              {errors.password?.types.matches && !isBlur
+                ? replacedString(passwordStr, errors.password.types.matches)
+                : null}
 
-              <div role='presentation' onClick={() => setIsShowed(!isShowed)} className={styles.passShow}>
-                <img src={isShowed ? passShow : passHide} alt='password showing' />
-              </div>
-
-              {errors.password && <p className={styles.errorMessage}>{errors.password.message}</p>}
-              {!errors.password && (
-                <span className={styles.hint}>Пароль не менее 8 символов, с заглавной буквой и цифрой</span>
+              {errors.password ? (
+                isBlur && <span className={styles.errorMessage}>{passwordStr}</span>
+              ) : (
+                <span className={styles.hint}>{passwordStr}</span>
               )}
             </div>
           </>
@@ -124,16 +135,11 @@ export function RegisterForm() {
             <div className={styles.inputWrapper}>
               <input
                 placeholder='Имя'
-                className={errors.identifier || localError === 400 ? styles.inputTextError : styles.inputText}
-                {...register('name', {
-                  required: 'Поле не может быть пустым',
-                  minLength: {
-                    value: 2,
-                    message: 'Min length is 2',
-                  },
-                })}
+                name='name'
+                {...register('name')}
+                className={errors.name || localError === 400 ? styles.inputTextError : styles.inputText}
               />
-              <label className={styles.inputLabel} htmlFor='phoneNum'>
+              <label className={styles.inputLabel} htmlFor='name'>
                 Имя
               </label>
 
@@ -144,13 +150,6 @@ export function RegisterForm() {
               <input
                 placeholder='Фамилия'
                 className={errors.surname || localError === 400 ? styles.inputTextError : styles.inputText}
-                {...register('surname', {
-                  required: 'Поле не может быть пустым',
-                  minLength: {
-                    value: 2,
-                    message: 'Min length is 2',
-                  },
-                })}
               />
               <label className={styles.inputLabel} htmlFor='surname'>
                 Фамилия
@@ -166,14 +165,7 @@ export function RegisterForm() {
             <div className={styles.inputWrapper}>
               <input
                 placeholder='Номер телефона'
-                className={errors.identifier || localError === 400 ? styles.inputTextError : styles.inputText}
-                {...register('phoneNum', {
-                  required: 'Поле не может быть пустым',
-                  minLength: {
-                    value: 2,
-                    message: 'Min length is 2',
-                  },
-                })}
+                className={errors.phoneNum || localError === 400 ? styles.inputTextError : styles.inputText}
               />
               <label className={styles.inputLabel} htmlFor='phoneNum'>
                 Номер телефона
@@ -185,14 +177,7 @@ export function RegisterForm() {
             <div className={styles.inputWrapper}>
               <input
                 placeholder='E-mail'
-                className={errors.identifier || localError === 400 ? styles.inputTextError : styles.inputText}
-                {...register('email', {
-                  required: 'Поле не может быть пустым',
-                  minLength: {
-                    value: 2,
-                    message: 'Min length is 2',
-                  },
-                })}
+                className={errors.email || localError === 400 ? styles.inputTextError : styles.inputText}
               />
               <label className={styles.inputLabel} htmlFor='email'>
                 E-mail
@@ -204,7 +189,7 @@ export function RegisterForm() {
         )}
 
         <button type='submit' className={styles.inputSubmit}>
-          {step < 2 ? 'Следующий шаг' : 'Последний шаг'}
+          {stepBtnTitle()}
         </button>
 
         <div className={styles.registerRow}>
