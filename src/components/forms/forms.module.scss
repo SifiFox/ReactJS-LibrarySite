@@ -76,6 +76,11 @@ form {
   margin-bottom: 1.6rem;
   margin-top: 3.2rem;
   cursor: pointer;
+
+  &:disabled {
+    background: #ebebeb;
+    cursor: not-allowed;
+  }
 }
 
 .inputWrapper {

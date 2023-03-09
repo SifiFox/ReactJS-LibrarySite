@@ -1,28 +1,38 @@
 import * as yup from 'yup';
 import { expressions } from '../constants/constants';
 
-export const userSchemaStage1 = yup.object().shape({
-  login: yup
-    .string()
-    .required(`<b>Логин не может быть пустым</b>`)
-    .matches(expressions.loginLetter, `латинский алфавит`)
-    .matches(expressions.loginNumber, `цифры`),
-  // .matches(expressions.loginFull, `Используйте для логина латинский алфавит и цифры`),
+export const testSchema = [
+  yup.object().shape({
+    username: yup
+      .string()
+      .required(`Логин не может быть пустым`)
+      .matches(expressions.loginLetter, `латинский алфавит`)
+      .matches(expressions.loginNumber, `цифры`),
 
-  password: yup
-    .string()
-    .required('Пароль не может быть пустым')
-    .matches(expressions.passwordBase, 'не менее 8 символов')
-    .matches(expressions.passwordMinOneNum, 'цифрой')
-    .matches(expressions.passwordUpperLetter, 'заглавной буквой'),
-});
+    password: yup
+      .string()
+      .required('Пароль не может быть пустым')
+      .matches(expressions.passwordBase, 'не менее 8 символов')
+      .matches(expressions.passwordMinOneNum, 'цифрой')
+      .matches(expressions.passwordUpperLetter, 'заглавной буквой'),
+  }),
 
-export const userSchemaStage2 = yup.object().shape({
-  name: yup.string().required(),
-  surname: yup.string().required(),
-});
+  yup.object().shape({
+    firstName: yup.string().required(`Поле не может быть пустым`),
+    lastName: yup.string().required('Поле не может быть пустым'),
+  }),
+  yup.object().shape({
+    phone: yup.string().required().matches(expressions.phone, 'В формате +375(xx) xxx-xx-xx'),
+    email: yup.string().required('Введите корректный e-mail').email('Введите корректный e-mail'),
+  }),
+];
 
-export const userSchemaStage3 = yup.object().shape({
-  phone: yup.string().required(),
-  email: yup.string().email().required(),
-});
+// export const resetPassSchema = yup.object().shape({
+//   password: yup
+//     .string()
+//     .required('Пароль не может быть пустым')
+//     .matches(expressions.passwordBase, 'не менее 8 символов')
+//     .matches(expressions.passwordMinOneNum, 'цифрой')
+//     .matches(expressions.passwordUpperLetter, 'заглавной буквой'),
+//   confirmPassword: yup.string().required(),
+// });

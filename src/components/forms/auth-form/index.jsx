@@ -56,7 +56,9 @@ export function AuthForm({ handleAuthError }) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({ mode: 'all', reValidateMode: 'onBlur', criteriaMode: 'all' });
+
+  console.log(errors);
 
   const onSubmit = (user) => handleLogin(user);
 
@@ -75,7 +77,7 @@ export function AuthForm({ handleAuthError }) {
               required: 'Поле не может быть пустым',
               minLength: {
                 value: 2,
-                message: 'Min length is 2',
+                message: 'Минимальная длина 2 символа',
               },
             })}
           />
@@ -111,7 +113,7 @@ export function AuthForm({ handleAuthError }) {
 
         {localError === 400 && (
           <>
-            <span className={styles.hint}>Неверный логин или пароль</span>
+            <span className={styles.errorMessage}>Неверный логин или пароль!</span>
             <Link className={styles.forgotLink} to='/forgot-pass'>
               Восстановить?
             </Link>

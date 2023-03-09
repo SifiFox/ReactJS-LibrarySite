@@ -1,26 +1,31 @@
 import React from 'react';
 
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { expressions } from '../../../constants/constants';
 
-import { userSchemaStage1 } from '../../../validations/user-validation';
+// import { userSchemaStage1, userSchemaStage2, userSchemaStage3 } from '../../../validations/user-validation';
 
 import styles from './register-form.module.scss';
 
 import passShow from '../../../assets/icons/password-showed.svg';
 import passHide from '../../../assets/icons/password-hide.svg';
 import arrow from '../../../assets/icons/arrow.svg';
+import { testSchema } from '../../../validations/user-validation';
+import { RegisterStep1 } from './register-step1';
+import { RegisterStep2 } from './register-step2';
+import { RegisterStep3 } from './register-step3';
+import { useRegistrationMutation } from '../../../redux/slices/api-slice';
+import { hideLoader, showLoader } from '../../../redux/slices/loader-slice';
 
-export function RegisterForm() {
+export function RegisterForm(handleRegistrationError) {
+  const [registration, data, isLoading, error] = useRegistrationMutation();
+
   const [step, setStep] = React.useState(1);
   const [localError, setLocalError] = React.useState(null);
-  const [isShowed, setIsShowed] = React.useState(false);
-  const [buttonAvaliable, setButtonAvaliable] = React.useState(false);
-
-  const [isBlur, setIsBlur] = React.useState(true);
-
+  const dispatch = useDispatch();
   const stepBtnTitle = () => {
     if (step === 1) {
       return 'следующий шаг';
@@ -31,47 +36,59 @@ export function RegisterForm() {
     return 'зарегистрироваться';
   };
 
+  React.useEffect(() => {
+    if (data.isLoading) {
+      dispatch(showLoader());
+    }
+
+    if (!data.isLoading) {
+      dispatch(hideLoader());
+
+      if (data.error) {
+        if (data.error.status === 400) {
+          setLocalError(data.error.status);
+        } else {
+          handleRegistrationError(data.error.status);
+        }
+      } else {
+        console.log(data);
+      }
+    }
+  }, [isLoading, data, handleRegistrationError, error, dispatch]);
+
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
   } = useForm({
-    resolver: yupResolver(userSchemaStage1),
+    resolver: yupResolver(testSchema[step - 1]),
     mode: 'all',
     reValidateMode: 'onBlur',
     criteriaMode: 'all',
   });
 
-  const handleBlur = (e) => {
-    console.log(errors);
-    console.log('test');
-    setIsBlur(true);
+  const handleRegistration = async (user) => {
+    const ans = await registration(user);
+    if (ans.error) {
+      console.log(user);
+    } else {
+      console.log(ans);
+    }
   };
 
   const submitForm = (registrationData) => {
+    if (step === 3) {
+      console.log(registrationData);
+      handleRegistration(registrationData);
+    }
     console.log(registrationData);
     setStep((prev) => prev + 1);
   };
 
-  const loginRef = React.useRef('login');
-  const passRef = React.useRef('password');
-  const loginStr = 'Используйте для логина латинский алфавит и цифры';
-  const passwordStr = 'Пароль не менее 8 символов, с заглавной буквой и цифрой';
-
-  function modifyStr(str, match) {
-    return str.replace(match, `<b>${match}</b>`);
-  }
-  function replacedString(str, matches) {
-    let newStr = str;
-    if (typeof matches !== 'string') {
-      matches.forEach((match) => {
-        newStr = modifyStr(newStr, match);
-      });
-      return <span className={styles.hint} dangerouslySetInnerHTML={{ __html: newStr }} />;
-    }
-    const res = str.replace(matches, `<b>${matches}</b>`);
-    return <span className={styles.hint} dangerouslySetInnerHTML={{ __html: res }} />;
-  }
+  console.log('errors');
+  console.log(errors);
+  console.log('isValid');
+  console.log(isValid);
 
   return (
     <>
@@ -80,115 +97,11 @@ export function RegisterForm() {
       </div>
       <div className={styles.stepTitle}>{step} шаг из 3</div>
       <form onSubmit={handleSubmit(submitForm)}>
-        {step === 1 && (
-          <>
-            <div className={styles.inputWrapper}>
-              <input
-                ref={loginRef}
-                placeholder='Логин'
-                className={errors.login || localError === 400 ? styles.inputTextError : styles.inputText}
-                name='login'
-                {...register('login')}
-                onFocus={() => setIsBlur(false)}
-                onBlur={(e) => handleBlur(e)}
-              />
-              <label className={styles.inputLabel} htmlFor='login'>
-                Логин
-              </label>
-              {errors.login?.types.matches && !isBlur ? replacedString(loginStr, errors.login.types.matches) : null}
+        {step === 1 && <RegisterStep1 styles={styles} errors={errors} register={register} />}
+        {step === 2 && <RegisterStep2 styles={styles} errors={errors} register={register} />}
+        {step === 3 && <RegisterStep3 styles={styles} errors={errors} register={register} />}
 
-              {errors.login ? (
-                isBlur && <span className={styles.errorMessage}>{loginStr}</span>
-              ) : (
-                <span className={styles.hint}>{loginStr}</span>
-              )}
-            </div>
-
-            <div className={styles.inputWrapper}>
-              <input
-                ref={passRef}
-                placeholder='Пароль'
-                className={errors.password || localError === 400 ? styles.inputTextError : styles.inputText}
-                name='password'
-                {...register('password')}
-                onFocus={() => setIsBlur(false)}
-                onBlur={(e) => handleBlur(e)}
-              />
-              <label className={styles.inputLabel} htmlFor='password'>
-                Пароль
-              </label>
-              {errors.password?.types.matches && !isBlur
-                ? replacedString(passwordStr, errors.password.types.matches)
-                : null}
-
-              {errors.password ? (
-                isBlur && <span className={styles.errorMessage}>{passwordStr}</span>
-              ) : (
-                <span className={styles.hint}>{passwordStr}</span>
-              )}
-            </div>
-          </>
-        )}
-
-        {step === 2 && (
-          <>
-            <div className={styles.inputWrapper}>
-              <input
-                placeholder='Имя'
-                name='name'
-                {...register('name')}
-                className={errors.name || localError === 400 ? styles.inputTextError : styles.inputText}
-              />
-              <label className={styles.inputLabel} htmlFor='name'>
-                Имя
-              </label>
-
-              {errors.name && <p className={styles.errorMessage}>{errors.name.message}</p>}
-            </div>
-
-            <div className={styles.inputWrapper}>
-              <input
-                placeholder='Фамилия'
-                className={errors.surname || localError === 400 ? styles.inputTextError : styles.inputText}
-              />
-              <label className={styles.inputLabel} htmlFor='surname'>
-                Фамилия
-              </label>
-
-              {errors.surname && <p className={styles.errorMessage}>{errors.surname.message}</p>}
-            </div>
-          </>
-        )}
-
-        {step === 3 && (
-          <>
-            <div className={styles.inputWrapper}>
-              <input
-                placeholder='Номер телефона'
-                className={errors.phoneNum || localError === 400 ? styles.inputTextError : styles.inputText}
-              />
-              <label className={styles.inputLabel} htmlFor='phoneNum'>
-                Номер телефона
-              </label>
-
-              {errors.phoneNum && <p className={styles.errorMessage}>{errors.phoneNum.message}</p>}
-            </div>
-
-            <div className={styles.inputWrapper}>
-              <input
-                placeholder='E-mail'
-                className={errors.email || localError === 400 ? styles.inputTextError : styles.inputText}
-              />
-              <label className={styles.inputLabel} htmlFor='email'>
-                E-mail
-              </label>
-
-              {errors.email && <p className={styles.errorMessage}>{errors.email.message}</p>}
-            </div>
-          </>
-        )}
-
-        <button type='submit' className={styles.inputSubmit}>
+        <button type='submit' disabled={!isValid && 'disabled'} className={styles.inputSubmit}>
           {stepBtnTitle()}
         </button>
 
@@ -203,3 +116,15 @@ export function RegisterForm() {
     </>
   );
 }
+
+// {
+//   errors.password?.types && !isBlur ? replacedString(passwordStr, errors.password.types) : null;
+// }
+
+// {
+//   errors.password ? (
+//     isBlur && <span className={styles.errorMessage}>{passwordStr}</span>
+//   ) : (
+//     <span className={styles.hint}>{passwordStr}</span>
+//   );
+// }

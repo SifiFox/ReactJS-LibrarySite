@@ -45,6 +45,17 @@ export const booksApi = createApi({
         body: userEmail,
       }),
     }),
+
+    resetPassword: builder.mutation({
+      query: (passData) => ({
+        headers: {
+          'Content-type': 'application/json',
+        },
+        url: '/api/auth/reset-password',
+        method: 'POST',
+        body: passData,
+      }),
+    }),
     registration: builder.mutation({
       query: (registrationData) => ({
         headers: {
@@ -64,5 +75,6 @@ export const {
   useGetCategoriesQuery,
   useUserLoginMutation,
   useForgotPasswordMutation,
+  useResetPasswordMutation,
   useRegistrationMutation,
 } = booksApi;

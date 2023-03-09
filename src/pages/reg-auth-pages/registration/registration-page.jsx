@@ -13,18 +13,29 @@ import { RegisterForm } from '../../../components/forms/register-form';
 
 export function RegistrationPage() {
   const isLoad = useSelector((state) => state.loader.isLoad);
+  const [registrationError, setRegistrationError] = React.useState(false);
 
-  // Password regexp (?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]{8,}
-  // login regexp ^(?=^.{1,}$)((?=.*\d)(?=.*[a-zA-Z]))[0-9a-zA-Z]*$
+  const handleRegistrationError = (error) => {
+    setRegistrationError(error);
+  };
 
   return (
     <div className={styles.root}>
-      {/* {isLoad && <Preloader />} */}
+      {isLoad && <Preloader />}
       <div className={styles.wrapper}>
         <div className={styles.authTitle}>Cleverland</div>
         <div className={styles.formWrapperLayout}>
           <div className={styles.formWrapper}>
-            <RegisterForm />
+            {!registrationError ? (
+              <RegisterForm handleRegistrationError={handleRegistrationError} />
+            ) : (
+              <ErrorForm
+                title='Вход не выполнен'
+                subtitle='Что-то пошло не так. Попробуйте еще раз'
+                buttonText='повторить'
+                handleRegistrationError={handleRegistrationError}
+              />
+            )}
           </div>
         </div>
       </div>
