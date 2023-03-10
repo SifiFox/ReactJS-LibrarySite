@@ -22,17 +22,20 @@ export const testSchema = [
     lastName: yup.string().required('Поле не может быть пустым'),
   }),
   yup.object().shape({
-    phone: yup.string().required().matches(expressions.phone, 'В формате +375(xx) xxx-xx-xx'),
-    email: yup.string().required('Введите корректный e-mail').email('Введите корректный e-mail'),
+    phone: yup
+      .string()
+      .required('Поле не может быть пустым')
+      .matches(expressions.phone, 'В формате +375(xx) xxx-xx-xx'),
+    email: yup.string().required('Поле не может быть пустым').email('Введите корректный e-mail'),
   }),
 ];
 
-// export const resetPassSchema = yup.object().shape({
-//   password: yup
-//     .string()
-//     .required('Пароль не может быть пустым')
-//     .matches(expressions.passwordBase, 'не менее 8 символов')
-//     .matches(expressions.passwordMinOneNum, 'цифрой')
-//     .matches(expressions.passwordUpperLetter, 'заглавной буквой'),
-//   confirmPassword: yup.string().required(),
-// });
+export const resetPassSchema = yup.object().shape({
+  password: yup
+    .string()
+    .required('Пароль не может быть пустым')
+    .matches(expressions.passwordBase, 'не менее 8 символов')
+    .matches(expressions.passwordMinOneNum, 'цифрой')
+    .matches(expressions.passwordUpperLetter, 'заглавной буквой'),
+  confirmPassword: yup.string().required('Поле не может быть пустым'),
+});

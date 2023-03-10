@@ -3,7 +3,6 @@ export function modifyStr(str, match) {
 }
 
 export function replacedString(str, localMatches) {
-  console.log(localMatches);
   let newStr = str;
 
   if (localMatches.email) {

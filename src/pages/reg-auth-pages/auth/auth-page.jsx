@@ -41,6 +41,8 @@ export function AuthPage() {
                 subtitle='Что-то пошло не так. Попробуйте еще раз'
                 buttonText='повторить'
                 handleAuthError={handleAuthError}
+                link='/auth'
+                type='auth'
               />
             )}
           </div>

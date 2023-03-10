@@ -37,6 +37,9 @@
   composes: hint from '../forms.module.scss';
 }
 
+.authTitle {
+  padding-top: 4.8rem;
+}
 .registerRow {
   display: flex;
   gap: 1.6rem;

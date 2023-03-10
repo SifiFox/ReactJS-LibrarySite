@@ -16,7 +16,7 @@ export function RegisterStep1({ styles, errors, register }) {
       <div className={styles.inputWrapper}>
         <input
           placeholder='Придумайте логин для входа'
-          className={styles.inputText}
+          className={errors.username || localError === 400 ? styles.inputTextError : styles.inputText}
           {...register('username')}
           onFocus={() => setUsernameFocus(true)}
           onBlur={() => setUsernameFocus(false)}

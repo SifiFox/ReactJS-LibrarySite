@@ -1,63 +1,38 @@
 import React from 'react';
 
-import MaskedInput from 'react-text-mask';
+import { InputMask } from 'primereact/inputmask';
+
 import passShow from '../../../../assets/icons/password-showed.svg';
 import passHide from '../../../../assets/icons/password-hide.svg';
 import { phoneStr, emailStr } from '../../../../constants/constants';
 import { replacedString } from '../../../../hooks/replace-string';
 
-export function RegisterStep3({ styles, errors, register }) {
+export function RegisterStep3({ styles, errors, register, trigger, control, Controller, setValue }) {
   const [phoneFocus, setPhoneFocus] = React.useState(false);
   const [emailFocus, setEmailFocus] = React.useState(false);
-  const [phoneState, setPhoneState] = React.useState('');
+  // const [phoneState, setPhoneState] = React.useState('');
+  const [phone, setPhone] = React.useState('');
 
-  console.log(errors);
-  const handleChangePhone = (e) => {
-    setPhoneState(e.target.value);
-  };
+  React.useEffect(() => {
+    setValue('phone', phone);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [phone]);
+
+  const mask = ['+', '3', '7', '5', ' ', '(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/];
+
   return (
     <>
       <div className={styles.inputWrapper}>
-        {/* <MaskedInput
-          mask={[
-            '+',
-            '3',
-            '7',
-            '5',
-            ' ',
-            '(',
-            /\d/,
-            /\d/,
-            ')',
-            ' ',
-            /\d/,
-            /\d/,
-            /\d/,
-            '-',
-            /\d/,
-            /\d/,
-            '-',
-            /\d/,
-            /\d/,
-          ]}
-          className={styles.inputText}
-          placeholder='Телефон'
-          guide={true}
-          id='my-input-id'
-          {...register('phone')}
-          value={phoneState}
-          onChange={(e) => handleChangePhone(e)}
-          onFocus={() => setPhoneFocus(true)}
-          onBlur={() => setPhoneFocus(false)}
-        /> */}
-
-        {/* <input
+        <InputMask
+          mask='+375 (99) 999-99-99'
+          slotChar='x'
+          name='phone'
           placeholder='Телефон'
           className={styles.inputText}
           {...register('phone')}
           onFocus={() => setPhoneFocus(true)}
           onBlur={() => setPhoneFocus(false)}
-        /> */}
+        />
         <label className={styles.inputLabel} htmlFor='phone'>
           Телефон
         </label>

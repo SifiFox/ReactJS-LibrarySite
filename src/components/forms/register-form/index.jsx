@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -20,7 +20,7 @@ import { RegisterStep3 } from './register-step3';
 import { useRegistrationMutation } from '../../../redux/slices/api-slice';
 import { hideLoader, showLoader } from '../../../redux/slices/loader-slice';
 
-export function RegisterForm(handleRegistrationError) {
+export function RegisterForm({ handleRegistrationError }) {
   const [registration, data, isLoading, error] = useRegistrationMutation();
 
   const [step, setStep] = React.useState(1);
@@ -47,7 +47,6 @@ export function RegisterForm(handleRegistrationError) {
       if (data.error) {
         if (data.error.status === 400) {
           setLocalError(data.error.status);
-        } else {
           handleRegistrationError(data.error.status);
         }
       } else {
@@ -59,6 +58,9 @@ export function RegisterForm(handleRegistrationError) {
   const {
     register,
     handleSubmit,
+    trigger,
+    control,
+    setValue,
     formState: { errors, isValid },
   } = useForm({
     resolver: yupResolver(testSchema[step - 1]),
@@ -67,39 +69,42 @@ export function RegisterForm(handleRegistrationError) {
     criteriaMode: 'all',
   });
 
-  const handleRegistration = async (user) => {
-    const ans = await registration(user);
-    if (ans.error) {
-      console.log(user);
-    } else {
-      console.log(ans);
-    }
-  };
+  const handleRegistration = async (registrationData) => {
+    trigger();
 
-  const submitForm = (registrationData) => {
     if (step === 3) {
-      console.log(registrationData);
-      handleRegistration(registrationData);
+      const ans = await registration(registrationData);
+      if (ans.error) {
+        console.log(ans);
+        handleRegistrationError(ans.error.originalStatus);
+      } else {
+        handleRegistrationError(200);
+      }
     }
-    console.log(registrationData);
     setStep((prev) => prev + 1);
   };
 
-  console.log('errors');
-  console.log(errors);
-  console.log('isValid');
-  console.log(isValid);
-
+  const onSubmit = (registrationData) => handleRegistration(registrationData);
   return (
     <>
       <div className={styles.authTitle}>
         <span>Регистрация</span>
       </div>
       <div className={styles.stepTitle}>{step} шаг из 3</div>
-      <form onSubmit={handleSubmit(submitForm)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         {step === 1 && <RegisterStep1 styles={styles} errors={errors} register={register} />}
         {step === 2 && <RegisterStep2 styles={styles} errors={errors} register={register} />}
-        {step === 3 && <RegisterStep3 styles={styles} errors={errors} register={register} />}
+        {step === 3 && (
+          <RegisterStep3
+            styles={styles}
+            errors={errors}
+            control={control}
+            Controller={Controller}
+            trigger={trigger}
+            setValue={setValue}
+            register={register}
+          />
+        )}
 
         <button type='submit' disabled={!isValid && 'disabled'} className={styles.inputSubmit}>
           {stepBtnTitle()}

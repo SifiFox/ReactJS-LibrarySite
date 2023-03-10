@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { Preloader } from '../../../components/preload-component';
@@ -12,12 +12,64 @@ import arrow from '../../../assets/icons/arrow.svg';
 import { RegisterForm } from '../../../components/forms/register-form';
 
 export function RegistrationPage() {
-  const isLoad = useSelector((state) => state.loader.isLoad);
   const [registrationError, setRegistrationError] = React.useState(false);
+  const [errorBody, setErrorBody] = React.useState({
+    title: '',
+    subtitle: '',
+    buttonText: '',
+    link: '',
+  });
 
   const handleRegistrationError = (error) => {
+    if (error) {
+      if (error === 405) {
+        setErrorBody({
+          title: 'Данные не сохранились',
+          subtitle: 'Что-то пошло не так и ваша регистрация не завершилась. Попробуйте еще раз',
+          buttonText: 'Повторить',
+          link: '/registration',
+        });
+      }
+
+      if (error === 400) {
+        setErrorBody({
+          title: 'Данные не сохранились',
+          subtitle:
+            'Такой логин или e-mail уже записан в системе. Попробуйте зарегистрироваться по другому логину или e-mail',
+          buttonText: 'Назад к регистрации',
+          link: '/registration',
+        });
+      }
+
+      if (error === 200) {
+        setErrorBody({
+          title: 'Регистрация успешна',
+          subtitle: 'Регистрация прошла успешно. Зайдите в личный кабинет, используя свои логин и пароль',
+          buttonText: 'Вход',
+          link: '/auth',
+        });
+      } else {
+        setErrorBody({
+          title: 'Данные не сохранились',
+          subtitle:
+            'Такой логин или e-mail уже записан в системе. Попробуйте зарегистрироваться по другому логину или e-mail',
+          buttonText: 'Назад к регистрации',
+          link: '/registration',
+        });
+      }
+    }
+
     setRegistrationError(error);
   };
+
+  const navigate = useNavigate();
+  const isLoad = useSelector((state) => state.loader.isLoad);
+
+  React.useEffect(() => {
+    if (sessionStorage.getItem('jwt') && sessionStorage.getItem('jwt') !== 'null') {
+      navigate('/books/all');
+    }
+  }, [navigate]);
 
   return (
     <div className={styles.root}>
@@ -30,10 +82,12 @@ export function RegistrationPage() {
               <RegisterForm handleRegistrationError={handleRegistrationError} />
             ) : (
               <ErrorForm
-                title='Вход не выполнен'
-                subtitle='Что-то пошло не так. Попробуйте еще раз'
-                buttonText='повторить'
+                title={errorBody.title}
+                subtitle={errorBody.subtitle}
+                buttonText={errorBody.buttonText}
+                link={errorBody.link}
                 handleRegistrationError={handleRegistrationError}
+                type='register'
               />
             )}
           </div>
