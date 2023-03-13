@@ -8,7 +8,7 @@ import check from '../../../../assets/icons/checkArrow.svg';
 import { loginStr, passwordStr } from '../../../../constants/constants';
 import { replacedString } from '../../../../hooks/replace-string';
 
-export function RegisterStep1({ styles, errors, register, getValues, clearErrors, setError }) {
+export function RegisterStep1({ styles, errors, register, getValues, clearErrors, setError, setFocus }) {
   const [isShowed, setIsShowed] = React.useState(false);
   const [localError, setLocalError] = React.useState(null);
   const [loginError, setLoginError] = React.useState(false);
@@ -44,9 +44,18 @@ export function RegisterStep1({ styles, errors, register, getValues, clearErrors
             },
           })}
         />
-        <label className={styles.inputLabel} htmlFor='username'>
-          Придумайте логин для входа
-        </label>
+
+        {getValues('username') && (
+          <label
+            role='presentation'
+            onClick={() => setFocus('username')}
+            className={styles.inputLabel}
+            htmlFor='username'
+          >
+            Придумайте логин для входа
+          </label>
+        )}
+
         {loginError ? (
           <p data-test-id='hint' className={loginError.class === 'light' ? 'all_string_error' : 'all_error_light'}>
             Используйте для логина латинский алфавит и цифры
@@ -73,7 +82,6 @@ export function RegisterStep1({ styles, errors, register, getValues, clearErrors
             required: 'Поле не может быть пустым',
             onBlur: () => {
               if (errors.password) {
-                console.log('error');
                 setPasswordError({
                   status: true,
                   class: 'light',
@@ -81,7 +89,6 @@ export function RegisterStep1({ styles, errors, register, getValues, clearErrors
               }
             },
             onChange: () => {
-              console.log(getValues('password'));
               setPasswordError(false);
               if (!getValues('password')) {
                 setPasswordError({

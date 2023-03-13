@@ -26,9 +26,8 @@ export function AuthForm({ handleAuthError }) {
     register,
     handleSubmit,
     getValues,
-    setValue,
+    setFocus,
     setError,
-    clearErrors,
     formState: { errors },
   } = useForm({ mode: 'all', reValidateMode: 'all', criteriaMode: 'all' });
 
@@ -53,9 +52,12 @@ export function AuthForm({ handleAuthError }) {
 
   const handleLogin = async (user) => {
     const userData = await userLogin(user);
-    if (userData.error) {
-      console.log(userData);
-    } else {
+    // if (userData.error) {
+    //   console.log(userData);
+    // } else {
+    //   dispatch(setToken(userData));
+    // }
+    if (!userData.error) {
       dispatch(setToken(userData));
     }
   };
@@ -78,7 +80,12 @@ export function AuthForm({ handleAuthError }) {
               required: 'Поле не может быть пустым',
             })}
           />
-          <label className={styles.inputLabel} htmlFor='identifier'>
+          <label
+            role='presentation'
+            onClick={() => setFocus('identifier')}
+            className={styles.inputLabel}
+            htmlFor='identifier'
+          >
             Логин
           </label>
 
@@ -106,7 +113,6 @@ export function AuthForm({ handleAuthError }) {
                 }
               },
               onChange: () => {
-                console.log(getValues('password'));
                 setPasswordValue(getValues('password'));
               },
             })}

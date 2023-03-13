@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { useResetPasswordMutation } from '../../../redux/slices/api-slice';
@@ -17,25 +17,20 @@ import { passwordStr } from '../../../constants/constants';
 
 import check from '../../../assets/icons/checkArrow.svg';
 
-export function ResetForm({ resetCode, handleForgetSuccess, handleForgetError }) {
+export function ResetForm({ resetCode, handleForgetError }) {
   const [resetPassword, data, isLoading, error] = useResetPasswordMutation();
   const [localError, setLocalError] = React.useState(null);
-  const [passwordFocus, setPasswordFocus] = React.useState(false);
   const [isShowed, setIsShowed] = React.useState(false);
   const [isConfirmShowed, setIsConfirmShowed] = React.useState(false);
   const [passwordError, setPasswordError] = React.useState(false);
   const [passwordConfirmError, setPasswordConfirmError] = React.useState(false);
-  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   React.useEffect(() => {
     if (data.isLoading) {
       dispatch(showLoader());
-      console.log(data);
-      console.log(error);
     }
     if (!data.isLoading) {
-      console.log(data);
-      console.log(error);
       dispatch(hideLoader());
 
       if (data.error) {
@@ -49,7 +44,6 @@ export function ResetForm({ resetCode, handleForgetSuccess, handleForgetError })
   const {
     register,
     handleSubmit,
-    setError,
     getValues,
     formState: { errors, isValid },
   } = useForm({
@@ -91,6 +85,11 @@ export function ResetForm({ resetCode, handleForgetSuccess, handleForgetError })
                   setPasswordError({
                     status: true,
                     class: 'light',
+                  });
+                }
+                if (!getValues('passwordConfirmation')) {
+                  setPasswordConfirmError({
+                    message: 'Поле не может быть пустым',
                   });
                 }
               },
@@ -146,16 +145,11 @@ export function ResetForm({ resetCode, handleForgetSuccess, handleForgetError })
             {...register('passwordConfirmation', {
               required: 'Поле не может быть пустым',
               onBlur: () => {
-                if (errors.passwordConfirmation) {
-                  setPasswordConfirmError(errors.passwordConfirmation);
+                if (getValues('password') !== getValues('passwordConfirmation')) {
+                  setPasswordConfirmError({ message: 'Пароли не совпадают' });
                 }
-                if (getValues('passwordConfirmation') !== getValues('password')) {
-                  setPasswordConfirmError(true);
-                }
-              },
-              onChange: () => {
-                if (getValues('passwordConfirmation') !== getValues('password')) {
-                  setPasswordConfirmError(true);
+                if (getValues('password') === getValues('passwordConfirmation')) {
+                  setPasswordConfirmError(false);
                 }
               },
             })}
@@ -167,19 +161,23 @@ export function ResetForm({ resetCode, handleForgetSuccess, handleForgetError })
           <div role='presentation' onClick={() => setIsConfirmShowed(!isConfirmShowed)} className={styles.passShow}>
             <img src={isConfirmShowed ? passShow : passHide} alt='password showing' />
           </div>
-          {console.log(passwordConfirmError)}
-          {passwordConfirmError && errors.passwordConfirmation?.type === 'required' ? (
-            <span data-test-id='hint' className={styles.errorMessage}>
-              Поле не может быть пустым
-            </span>
+
+          {errors.passwordConfirmation?.type === 'required' ? (
+            <p data-test-id='hint' className={styles.errorMessage}>
+              {errors.passwordConfirmation.message}
+            </p>
           ) : (
-            <span data-test-id='hint' className={styles.errorMessage}>
-              Пароли не совпадают
-            </span>
+            <p data-test-id='hint' className={styles.errorMessage}>
+              {passwordConfirmError.message}
+            </p>
           )}
         </div>
 
-        <button type='submit' disabled={!isValid && 'disabled'} className={styles.inputSubmit}>
+        <button
+          type='submit'
+          disabled={!isValid || (passwordConfirmError && 'disabled')}
+          className={styles.inputSubmit}
+        >
           сохранить изменения
         </button>
       </form>

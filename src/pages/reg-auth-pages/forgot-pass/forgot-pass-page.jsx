@@ -14,7 +14,6 @@ import { hideLoader } from '../../../redux/slices/loader-slice';
 
 export function ForgotPassPage() {
   const [forgotSuccess, setForgetSuccess] = React.useState(false);
-  const [forgotError, setForgetError] = React.useState(false);
   const [errorBody, setErrorBody] = React.useState();
 
   const isLoad = useSelector((state) => state.loader.isLoad);
@@ -28,8 +27,6 @@ export function ForgotPassPage() {
   const code = new URLSearchParams(search).get('code');
 
   const handleForgetError = (error) => {
-    console.log(error);
-
     if (error) {
       if (error !== 200) {
         setErrorBody({

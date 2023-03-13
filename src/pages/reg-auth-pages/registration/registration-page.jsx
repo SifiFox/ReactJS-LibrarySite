@@ -4,11 +4,9 @@ import { useSelector } from 'react-redux';
 
 import { Preloader } from '../../../components/preload-component';
 import { ErrorForm } from '../../../components/forms/error-form';
-import { ForgotForm } from '../../../components/forms/forgot-pass-form';
 
 import styles from './registration-page.module.scss';
 
-import arrow from '../../../assets/icons/arrow.svg';
 import { RegisterForm } from '../../../components/forms/register-form';
 
 export function RegistrationPage() {

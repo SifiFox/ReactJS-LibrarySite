@@ -436,7 +436,7 @@ describe('authorization and registartion', () => {
       cy.get('[data-test-id=send-email-form] input[name=email]').clear().type('test@gmail.com');
       cy.get('[data-test-id=send-email-form] input[name=email]').blur();
     });
-    it.only('success reset password', () => {
+    it('success reset password', () => {
       cy.intercept('/api/auth/reset-password', {
         delay: 1000,
         statusCode: 200,

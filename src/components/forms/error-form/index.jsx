@@ -3,16 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import styles from './error-form.module.scss';
 
-export function ErrorForm({
-  handleAuthError,
-  handleForgetError,
-  handleRegistrationError,
-  buttonText,
-  title,
-  subtitle,
-  link,
-  type,
-}) {
+export function ErrorForm({ handleAuthError, handleRegistrationError, buttonText, title, subtitle, link, type }) {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -27,7 +18,6 @@ export function ErrorForm({
     if (type === 'reset') {
       navigate(link);
     }
-    // navigate(link);
   };
 
   return (

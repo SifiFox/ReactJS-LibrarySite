@@ -1,18 +1,11 @@
 import React from 'react';
 
-import passShow from '../../../../assets/icons/password-showed.svg';
-import passHide from '../../../../assets/icons/password-hide.svg';
 import { firstNameStr, lastNameStr } from '../../../../constants/constants';
 import { replacedString } from '../../../../hooks/replace-string';
 
 export function RegisterStep2({ styles, errors, register }) {
-  const [isShowed, setIsShowed] = React.useState(false);
-  const [localError, setLocalError] = React.useState(null);
   const [firstNameFocus, setFirstNameFocus] = React.useState(false);
   const [lastNameFocus, setLastNameFocus] = React.useState(false);
-
-  const [firstNameError, setFirstNameError] = React.useState(false);
-  const [lastNameError, setLastNameError] = React.useState(false);
 
   return (
     <>
