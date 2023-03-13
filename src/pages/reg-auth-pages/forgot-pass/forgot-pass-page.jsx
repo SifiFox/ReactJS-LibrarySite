@@ -14,6 +14,9 @@ import { hideLoader } from '../../../redux/slices/loader-slice';
 
 export function ForgotPassPage() {
   const [forgotSuccess, setForgetSuccess] = React.useState(false);
+  const [forgotError, setForgetError] = React.useState(false);
+  const [errorBody, setErrorBody] = React.useState();
+
   const isLoad = useSelector((state) => state.loader.isLoad);
   const navigate = useNavigate();
   const location = useLocation();
@@ -23,8 +26,33 @@ export function ForgotPassPage() {
   };
   const { search } = location;
   const code = new URLSearchParams(search).get('code');
+
+  const handleForgetError = (error) => {
+    console.log(error);
+
+    if (error) {
+      if (error !== 200) {
+        setErrorBody({
+          title: 'Данные не сохранились',
+          subtitle: 'Что-то пошло не так. Попробуйте еще раз',
+          buttonText: 'повторить',
+          link: `/forgot-pass?code=${code}`,
+        });
+      }
+      if (error === 200) {
+        setErrorBody({
+          title: 'Новые данные сохранены',
+          subtitle: 'Зайдите в личный кабинет, используя свои логин и новый пароль',
+          buttonText: 'вход',
+          link: '/auth',
+          type: 'reset',
+        });
+      }
+    }
+  };
+
   React.useEffect(() => {
-    if (sessionStorage.getItem('jwt') && sessionStorage.getItem('jwt') !== 'null') {
+    if (localStorage.getItem('jwt') && sessionStorage.getItem('jwt') !== 'null') {
       navigate('/books/all');
     }
     setForgetSuccess(false);
@@ -32,8 +60,6 @@ export function ForgotPassPage() {
       dispatch(hideLoader());
     }
   }, [navigate, code, dispatch]);
-
-  console.log(isLoad);
 
   return (
     <div className={styles.root}>
@@ -52,7 +78,7 @@ export function ForgotPassPage() {
               </div>
             )}
 
-            <div className={styles.formWrapper}>
+            <div data-test-id='auth' className={styles.formWrapper}>
               {forgotSuccess ? (
                 <ErrorForm
                   title='Письмо выслано'
@@ -65,14 +91,36 @@ export function ForgotPassPage() {
           </div>
         ) : (
           <div className={styles.formWrapperLayout}>
-            <div className={styles.formWrapper}>
+            <div data-test-id='auth' className={styles.formWrapper}>
               {forgotSuccess ? (
                 <ErrorForm
                   title='Письмо выслано'
                   subtitle='Перейдите в вашу почту, чтобы воспользоваться подсказками по восстановлению пароля'
                 />
+              ) : errorBody ? (
+                <ErrorForm
+                  title={errorBody.title}
+                  subtitle={errorBody.subtitle}
+                  buttonText={errorBody.buttonText}
+                  link={errorBody.link}
+                  type={errorBody.type}
+                  handleForgetError={handleForgetError}
+                />
+              ) : errorBody ? (
+                <ErrorForm
+                  title={errorBody.title}
+                  subtitle={errorBody.subtitle}
+                  buttonText={errorBody.buttonText}
+                  link={errorBody.link}
+                  type={errorBody.type}
+                  handleForgetError={handleForgetError}
+                />
               ) : (
-                <ResetForm resetCode={code} handleForgetSuccess={handleForgetSuccess} />
+                <ResetForm
+                  resetCode={code}
+                  handleForgetError={handleForgetError}
+                  handleForgetSuccess={handleForgetSuccess}
+                />
               )}
             </div>
           </div>

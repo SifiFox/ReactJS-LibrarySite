@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { useGetBooksQuery } from '../../redux/slices/api-slice';
+import { useGetBooksQuery, useGetCategoriesQuery } from '../../redux/slices/api-slice';
 
 import { Header } from '../../components/header-component';
 import { Menu } from '../../components/menu-component';
@@ -19,20 +19,26 @@ export function MainPage() {
   const isError = useSelector((state) => state.loader.isError);
 
   const dispatch = useDispatch();
-
+  const [skip, setSkip] = React.useState(true);
   const burgerRef = React.useRef();
   const location = useLocation();
   const navigate = useNavigate();
-
-  const { data = [], refetch, isLoading, error } = useGetBooksQuery();
+  const isLoad = useSelector((state) => state.loader.isLoad);
+  const { data = [], refetch, isLoading, error } = useGetBooksQuery(1, { skip });
+  const categories = useGetCategoriesQuery(1, { skip });
 
   React.useEffect(() => {
-    dispatch(showLoader());
-    refetch();
-
-    if (!sessionStorage.getItem('jwt') || sessionStorage.getItem('jwt') === 'null') {
+    if (isLoad) {
+      dispatch(showLoader());
+    }
+    if (localStorage.getItem('jwt') || localStorage.getItem('jwt') !== 'null') {
+      setSkip(false);
+    }
+    if (location.pathname === '/books/') {
+      navigate('/books/all');
+    }
+    if (!localStorage.getItem('jwt') || localStorage.getItem('jwt') === 'null') {
       navigate('/auth');
-      return;
     }
     if (location.pathname === '/') {
       navigate('/books/all');
@@ -41,15 +47,35 @@ export function MainPage() {
       navigate('/books/all');
     }
 
-    if (!isLoading) {
-      dispatch(hideLoader());
-      dispatch(setBooksList(data));
+    // dispatch(showLoader());
+
+    // if (isLoading || categories.isLoading) {
+    //   dispatch(showLoader());
+    // }
+    if (isLoading) {
+      dispatch(showLoader());
     }
 
-    if (error) {
-      dispatch(showError());
+    if (!isLoading) {
+      dispatch(setBooksList(data));
+      dispatch(hideLoader());
     }
-  }, [location, navigate, isLoading, dispatch, error, data, refetch]);
+
+    // if (!isLoading && !categories.isLoading) {
+    //   dispatch(setBooksList(data));
+    //   dispatch(hideLoader());
+    // }
+
+    // if (error || categories.error) {
+    //   console.log(error);
+    //   console.log(categories.error);
+    //   dispatch(showError());
+    // }
+  }, [location, navigate, isLoading, dispatch, isLoad, error, data, refetch]);
+
+  if (!localStorage.getItem('jwt') || localStorage.getItem('jwt') === 'null') {
+    return navigate('/auth');
+  }
 
   return (
     <>

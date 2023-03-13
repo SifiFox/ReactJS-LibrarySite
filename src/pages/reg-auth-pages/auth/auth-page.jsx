@@ -20,15 +20,17 @@ export function AuthPage() {
   const user = useSelector((state) => state.auth.user);
 
   React.useEffect(() => {
-    if (sessionStorage.getItem('jwt') && sessionStorage.getItem('jwt') !== 'null') {
+    if (localStorage.getItem('jwt') && sessionStorage.getItem('jwt') !== 'null') {
       navigate('/books/all');
+    } else {
+      navigate('/auth');
     }
   }, [navigate, user]);
 
   return (
     <div className={styles.root}>
       {isLoad && <Preloader />}
-      <div className={styles.wrapper}>
+      <div data-test-id='auth' className={styles.wrapper}>
         <div className={styles.authTitle}>Cleverland</div>
 
         <div className={styles.formWrapperLayout}>

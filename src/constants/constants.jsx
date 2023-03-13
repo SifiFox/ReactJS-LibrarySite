@@ -14,9 +14,12 @@ export const expressions = {
     /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i,
 };
 
-export const loginStr = 'Используйте для логина латинский алфавит и цифры';
-export const passwordStr = 'пароль не менее 8 символов, с заглавной буквой и цифрой';
+export const loginStr = `Используйте для логина <span class='hint_light'>латинский алфавит</span> и <span class='hint_light'>цифры</span>`;
+export const passwordStr = `Пароль <span class='hint_light'>не менее 8 символов</span>, с <span class='hint_light'>заглавной буквой</span> и <span class='hint_light'>цифрой</span>`;
 export const firstNameStr = 'Поле не может быть пустым';
 export const lastNameStr = 'Поле не может быть пустым';
-export const phoneStr = 'В формате +375(xx) xxx-xx-xx';
+export const identifierStr = 'Поле не может быть пустым';
+
+export const phoneStr = 'В формате +375 (xx) xxx-xx-xx';
+
 export const emailStr = 'Введите корректный e-mail';

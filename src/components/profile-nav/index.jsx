@@ -20,7 +20,7 @@ export function ProfileNav() {
     <div className={styles.root}>
       <ul>
         <li>Профиль</li>
-        <li role='presentation' onClick={logout}>
+        <li data-test-id='exit-button' role='presentation' onClick={logout}>
           Выход
         </li>
       </ul>

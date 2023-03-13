@@ -22,10 +22,10 @@ export function RegistrationPage() {
 
   const handleRegistrationError = (error) => {
     if (error) {
-      if (error === 405) {
+      if (error === 500 || error === 405) {
         setErrorBody({
           title: 'Данные не сохранились',
-          subtitle: 'Что-то пошло не так и ваша регистрация не завершилась. Попробуйте еще раз',
+          subtitle: 'Что-то пошло не так и ваша регистрация не завершилась. Попробуйте ещё раз',
           buttonText: 'Повторить',
           link: '/registration',
         });
@@ -48,14 +48,6 @@ export function RegistrationPage() {
           buttonText: 'Вход',
           link: '/auth',
         });
-      } else {
-        setErrorBody({
-          title: 'Данные не сохранились',
-          subtitle:
-            'Такой логин или e-mail уже записан в системе. Попробуйте зарегистрироваться по другому логину или e-mail',
-          buttonText: 'Назад к регистрации',
-          link: '/registration',
-        });
       }
     }
 
@@ -66,7 +58,7 @@ export function RegistrationPage() {
   const isLoad = useSelector((state) => state.loader.isLoad);
 
   React.useEffect(() => {
-    if (sessionStorage.getItem('jwt') && sessionStorage.getItem('jwt') !== 'null') {
+    if (localStorage.getItem('jwt') && localStorage.getItem('jwt') !== 'null') {
       navigate('/books/all');
     }
   }, [navigate]);
@@ -77,7 +69,7 @@ export function RegistrationPage() {
       <div className={styles.wrapper}>
         <div className={styles.authTitle}>Cleverland</div>
         <div className={styles.formWrapperLayout}>
-          <div className={styles.formWrapper}>
+          <div data-test-id='auth' className={styles.formWrapper}>
             {!registrationError ? (
               <RegisterForm handleRegistrationError={handleRegistrationError} />
             ) : (

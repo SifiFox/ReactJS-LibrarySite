@@ -144,3 +144,10 @@ form {
   letter-spacing: 0.02rem;
   color: #727272;
 }
+
+.markcheck {
+  position: absolute;
+  left: -50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}

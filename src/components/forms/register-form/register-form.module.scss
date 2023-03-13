@@ -37,6 +37,10 @@
   composes: hint from '../forms.module.scss';
 }
 
+.markcheck {
+  composes: markcheck from '../forms.module.scss';
+}
+
 .registerRow {
   display: flex;
   gap: 1.6rem;

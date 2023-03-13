@@ -15,4 +15,8 @@
   align-items: flex-start;
   justify-content: center;
   width: 52.8rem;
+  @media (max-width: 580px) {
+    width: 87vw;
+    padding: 2.4rem 1.6rem;
+  }
 }

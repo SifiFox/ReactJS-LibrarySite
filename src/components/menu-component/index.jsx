@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-import { useGetCategoriesQuery } from '../../redux/slices/api-slice';
+import { useGetCategoriesQuery, useGetBooksQuery } from '../../redux/slices/api-slice';
 
 import styles from './menu-component.module.scss';
 
@@ -15,6 +15,7 @@ import { setCategoriesList } from '../../redux/slices/categories-slice';
 
 export function Menu({ burgerRef }) {
   const { data = [], isLoading, error } = useGetCategoriesQuery();
+  const books = useGetBooksQuery();
 
   const [isAuth] = React.useState(true);
   const { burgerActive } = useSelector((state) => state.menu);
@@ -37,9 +38,11 @@ export function Menu({ burgerRef }) {
       }
     };
 
-    if (!isLoading) {
+    if (!isLoading && !books.isLoading) {
       if (error) {
-        dispatch(showError());
+        // console.log(error);
+        // console.log(books.error);
+        // dispatch(showError());
       } else {
         dispatch(setCategoriesList(data));
       }
@@ -47,7 +50,7 @@ export function Menu({ burgerRef }) {
 
     document.body.addEventListener('click', handleClickOutside);
     return () => document.body.removeEventListener('click', handleClickOutside);
-  }, [burgerActive, burgerRef, dispatch, isLoading, error, data]);
+  }, [burgerActive, burgerRef, dispatch, isLoading, error, data, books]);
 
   return (
     <div

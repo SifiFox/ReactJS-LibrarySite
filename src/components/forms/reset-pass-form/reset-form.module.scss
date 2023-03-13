@@ -37,6 +37,10 @@
   composes: hint from '../forms.module.scss';
 }
 
+.markcheck {
+  composes: markcheck from '../forms.module.scss';
+}
+
 .authTitle {
   padding-top: 4.8rem;
 }

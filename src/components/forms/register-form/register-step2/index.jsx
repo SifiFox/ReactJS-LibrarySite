@@ -11,15 +11,18 @@ export function RegisterStep2({ styles, errors, register }) {
   const [firstNameFocus, setFirstNameFocus] = React.useState(false);
   const [lastNameFocus, setLastNameFocus] = React.useState(false);
 
+  const [firstNameError, setFirstNameError] = React.useState(false);
+  const [lastNameError, setLastNameError] = React.useState(false);
+
   return (
     <>
       <div className={styles.inputWrapper}>
         <input
           placeholder='Имя'
           className={styles.inputText}
-          {...register('firstName')}
-          onFocus={() => setFirstNameFocus(true)}
-          onBlur={() => setFirstNameFocus(false)}
+          {...register('firstName', {
+            required: 'Поле не может быть пустым',
+          })}
         />
         <label className={styles.inputLabel} htmlFor='firstName'>
           Имя
@@ -28,16 +31,18 @@ export function RegisterStep2({ styles, errors, register }) {
         {firstNameFocus
           ? errors.firstName?.types && replacedString(firstNameStr, errors.firstName.types)
           : errors.firstName?.types && (
-              <p className={!errors.firstName ? styles.hint : styles.errorMessage}>{firstNameStr}</p>
+              <p data-test-id='hint' className={!errors.firstName ? styles.hint : styles.errorMessage}>
+                {firstNameStr}
+              </p>
             )}
       </div>
       <div className={styles.inputWrapper}>
         <input
           placeholder='Фамилия'
           className={styles.inputText}
-          {...register('lastName')}
-          onFocus={() => setLastNameFocus(true)}
-          onBlur={() => setLastNameFocus(false)}
+          {...register('lastName', {
+            required: 'Поле не может быть пустым',
+          })}
         />
         <label className={styles.inputLabel} htmlFor='lastName'>
           Фамилия
@@ -46,7 +51,9 @@ export function RegisterStep2({ styles, errors, register }) {
         {lastNameFocus
           ? errors.lastName?.types && replacedString(lastNameStr, errors.lastName.types)
           : errors.lastName?.types && (
-              <p className={!errors.lastName ? styles.hint : styles.errorMessage}>{lastNameStr}</p>
+              <p data-test-id='hint' className={!errors.lastName ? styles.hint : styles.errorMessage}>
+                {lastNameStr}
+              </p>
             )}
       </div>
     </>

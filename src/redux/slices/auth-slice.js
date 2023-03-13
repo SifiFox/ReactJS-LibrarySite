@@ -3,8 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const authSlice = createSlice({
   name: 'auth',
   initialState: {
-    user: sessionStorage.getItem('user') ? sessionStorage.getItem('user') : null,
-    jwt: sessionStorage.getItem('jwt') ? sessionStorage.getItem('jwt') : null,
+    user: localStorage.getItem('user') ? localStorage.getItem('user') : null,
+    jwt: localStorage.getItem('jwt') ? localStorage.getItem('jwt') : null,
     error: null,
   },
   reducers: {
@@ -12,15 +12,15 @@ const authSlice = createSlice({
       if (action.payload.data.user) {
         state.user = action.payload.data.user;
         state.jwt = action.payload.data.jwt;
-        sessionStorage.setItem('user', JSON.stringify(action.payload.data.user));
-        sessionStorage.setItem('jwt', action.payload.data.jwt);
+        localStorage.setItem('user', JSON.stringify(action.payload.data.user));
+        localStorage.setItem('jwt', action.payload.data.jwt);
       } else {
         console.log(action.payload);
       }
     },
     logOut: (state) => {
-      sessionStorage.removeItem('user');
-      sessionStorage.removeItem('jwt');
+      localStorage.removeItem('user');
+      localStorage.removeItem('jwt');
       state.user = null;
       state.jwt = null;
     },

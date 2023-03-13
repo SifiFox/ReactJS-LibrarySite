@@ -112,12 +112,41 @@ html {
   position: relative;
 }
 
-b {
-  color: rgba(255, 82, 83, 1);
+.error_span {
+  color: rgb(244, 44, 79);
   font-weight: 500;
   font-size: 1.2rem;
   line-height: 1.6rem;
   letter-spacing: 0.02rem;
+}
+
+.hint_light {
+  font-weight: 500;
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+  letter-spacing: 0.02rem;
+  color: rgb(167, 167, 167) !important;
+}
+.all_string_error {
+  font-weight: 500;
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+  letter-spacing: 0.02rem;
+  color: rgb(244, 44, 79);
+}
+.all_error_light {
+  font-weight: 500;
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+  letter-spacing: 0.02rem;
+  color: rgb(167, 167, 167);
+}
+.hint {
+  font-weight: 500;
+  font-size: 1.2rem;
+  line-height: 1.6rem;
+  letter-spacing: 0.02rem;
+  color: rgb(114, 114, 114);
 }
 
 @media (max-width: 768px) {

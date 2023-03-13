@@ -3,7 +3,16 @@ import { useNavigate } from 'react-router-dom';
 
 import styles from './error-form.module.scss';
 
-export function ErrorForm({ handleAuthError, handleRegistrationError, buttonText, title, subtitle, link, type }) {
+export function ErrorForm({
+  handleAuthError,
+  handleForgetError,
+  handleRegistrationError,
+  buttonText,
+  title,
+  subtitle,
+  link,
+  type,
+}) {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -15,11 +24,14 @@ export function ErrorForm({ handleAuthError, handleRegistrationError, buttonText
       handleRegistrationError(false);
       navigate(link);
     }
+    if (type === 'reset') {
+      navigate(link);
+    }
     // navigate(link);
   };
 
   return (
-    <div className={styles.errorFormContent}>
+    <div data-test-id='status-block' className={styles.errorFormContent}>
       <div className={styles.authTitle}>
         <span>{title}</span>
       </div>

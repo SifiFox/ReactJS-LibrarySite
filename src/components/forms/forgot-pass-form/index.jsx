@@ -14,7 +14,7 @@ import arrow from '../../../assets/icons/arrow.svg';
 
 export function ForgotForm({ handleForgetSuccess }) {
   const [localError, setLocalError] = React.useState(null);
-
+  const [emailError, setEmailError] = React.useState();
   const dispatch = useDispatch();
 
   const [forgotPassword, data, isLoading, error] = useForgotPasswordMutation();
@@ -37,8 +37,12 @@ export function ForgotForm({ handleForgetSuccess }) {
     register,
     handleSubmit,
     setError,
+    getValues,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    mode: 'all',
+    reValidateMode: 'all',
+  });
 
   const handleResetPassword = async (userEmail) => {
     const res = await forgotPassword({ email: userEmail.email });
@@ -61,11 +65,14 @@ export function ForgotForm({ handleForgetSuccess }) {
         <span>Восстановление пароля</span>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form data-test-id='send-email-form' onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.inputWrapper}>
           <input
             placeholder='Email'
             className={errors.email || localError ? styles.inputTextError : styles.inputText}
+            onFocus={() => {
+              setEmailError(false);
+            }}
             {...register('email', {
               required: 'Поле не может быть пустым',
               minLength: {
@@ -82,7 +89,11 @@ export function ForgotForm({ handleForgetSuccess }) {
             Email
           </label>
 
-          {errors.email && <p className={styles.errorMessage}>{errors.email.message}</p>}
+          {errors.email && (
+            <span data-test-id='hint' className={styles.errorMessage}>
+              {errors.email.message}
+            </span>
+          )}
 
           <div className={styles.hint}>
             На это email будет отправлено письмо с инструкциями по восстановлению пароля

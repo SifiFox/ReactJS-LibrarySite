@@ -49,6 +49,10 @@ export function RegisterForm({ handleRegistrationError }) {
           setLocalError(data.error.status);
           handleRegistrationError(data.error.status);
         }
+        if (data.error.status === 500) {
+          setLocalError(data.error.status);
+          handleRegistrationError(data.error.status);
+        }
       } else {
         console.log(data);
       }
@@ -61,11 +65,14 @@ export function RegisterForm({ handleRegistrationError }) {
     trigger,
     control,
     setValue,
+    getValues,
+    setError,
+    clearErrors,
     formState: { errors, isValid },
   } = useForm({
     resolver: yupResolver(testSchema[step - 1]),
     mode: 'all',
-    reValidateMode: 'onBlur',
+    reValidateMode: 'onChange',
     criteriaMode: 'all',
   });
 
@@ -91,8 +98,17 @@ export function RegisterForm({ handleRegistrationError }) {
         <span>Регистрация</span>
       </div>
       <div className={styles.stepTitle}>{step} шаг из 3</div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        {step === 1 && <RegisterStep1 styles={styles} errors={errors} register={register} />}
+      <form data-test-id='register-form' onSubmit={handleSubmit(onSubmit)}>
+        {step === 1 && (
+          <RegisterStep1
+            styles={styles}
+            setError={setError}
+            getValues={getValues}
+            errors={errors}
+            register={register}
+            clearErrors={clearErrors}
+          />
+        )}
         {step === 2 && <RegisterStep2 styles={styles} errors={errors} register={register} />}
         {step === 3 && (
           <RegisterStep3
@@ -101,6 +117,7 @@ export function RegisterForm({ handleRegistrationError }) {
             control={control}
             Controller={Controller}
             trigger={trigger}
+            getValues={getValues}
             setValue={setValue}
             register={register}
           />
