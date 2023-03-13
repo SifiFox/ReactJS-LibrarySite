@@ -1,0 +1,69 @@
+.authTitle {
+  composes: formTitle from '../forms.module.scss';
+}
+
+.inputText {
+  composes: inputText from '../forms.module.scss';
+}
+
+.inputSubmit {
+  composes: inputSubmit from '../forms.module.scss';
+}
+
+.inputWrapper {
+  composes: inputWrapper from '../forms.module.scss';
+}
+
+.inputLabel {
+  composes: inputLabel from '../forms.module.scss';
+}
+
+.errorMessage {
+  composes: errorMessage from '../forms.module.scss';
+}
+
+.passShow {
+  composes: passShow from '../forms.module.scss';
+}
+.forgotLink {
+  composes: forgotLink from '../forms.module.scss';
+}
+
+.inputTextError {
+  composes: inputTextError from '../forms.module.scss';
+}
+
+.hint {
+  composes: hint from '../forms.module.scss';
+}
+
+.registerRow {
+  display: flex;
+  gap: 1.6rem;
+  span {
+    color: #727272;
+    font-weight: 400;
+    font-size: 1.6rem;
+    line-height: 2.4rem;
+  }
+}
+
+.registerLink {
+  font-weight: 600;
+  letter-spacing: 0.02rem;
+  text-transform: uppercase;
+  color: #363636;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  img {
+    max-width: 1.8rem;
+  }
+}
+
+.showed {
+  display: block;
+}
+.hide {
+  display: none;
+}

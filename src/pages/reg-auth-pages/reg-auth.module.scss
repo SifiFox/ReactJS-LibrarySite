@@ -1,0 +1,43 @@
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(231.58deg, #f83600 -53.35%, #f9d423 297.76%);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.authTitle {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 3.2rem;
+  line-height: 4rem;
+  letter-spacing: 0.01rem;
+  color: #ffffff;
+  padding-top: 18rem;
+  margin-bottom: 5.9rem;
+}
+
+.formWrapperLayout {
+  border-radius: 1.6rem;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  width: 52.8rem;
+  @media (max-width: 580px) {
+    width: 87vw;
+    padding: 2.4rem 1.6rem;
+  }
+}
+
+.formWrapper {
+  padding: 0rem 5.6rem 4.8rem 5.6rem;
+  width: 100%;
+  align-self: center;
+  @media (max-width: 580px) {
+    width: 87vw;
+    padding: 2.4rem 1.6rem;
+  }
+}
