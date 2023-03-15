@@ -52,11 +52,6 @@ export function AuthForm({ handleAuthError }) {
 
   const handleLogin = async (user) => {
     const userData = await userLogin(user);
-    // if (userData.error) {
-    //   console.log(userData);
-    // } else {
-    //   dispatch(setToken(userData));
-    // }
     if (!userData.error) {
       dispatch(setToken(userData));
     }

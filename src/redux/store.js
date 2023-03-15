@@ -7,6 +7,7 @@ import { search } from './slices/search-slice';
 import { booksList } from './slices/bookslist-slice';
 import { categoriesList } from './slices/categories-slice';
 import { auth } from './slices/auth-slice';
+import { modal } from './slices/modal-slice';
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
     booksList,
     categoriesList,
     auth,
+    modal,
     [booksApi.reducerPath]: booksApi.reducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(booksApi.middleware),

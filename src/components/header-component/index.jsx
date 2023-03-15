@@ -14,6 +14,8 @@ import { logOut } from '../../redux/slices/auth-slice';
 export function Header({ burgerRef }) {
   const [profileModalActive, setProfileModalActive] = React.useState(false);
   const { burgerActive } = useSelector((state) => state.menu);
+  const { user } = useSelector((state) => state.auth);
+  const currentUser = JSON.parse(user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -48,7 +50,7 @@ export function Header({ burgerRef }) {
       </div>
       <div className='headerRightSide'>
         <div role='presentation' onClick={() => setProfileModalActive(!profileModalActive)} className={styles.profile}>
-          <div className={styles.profileDesc}>Привет, Иван!</div>
+          <div className={styles.profileDesc}>Привет, {currentUser.firstName}!</div>
           <div className={styles.profileImageWrapper}>
             <img src={avatar} alt='avatar' />
           </div>

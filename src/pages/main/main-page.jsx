@@ -14,6 +14,7 @@ import { Error } from '../../components/error-component';
 import { hideLoader, showLoader, showError } from '../../redux/slices/loader-slice';
 import { setBooksList } from '../../redux/slices/bookslist-slice';
 import { hideMenu } from '../../redux/slices/menu-slice';
+import { Modal } from '../../components/modals';
 
 export function MainPage() {
   const isError = useSelector((state) => state.loader.isError);
@@ -26,6 +27,7 @@ export function MainPage() {
   const isLoad = useSelector((state) => state.loader.isLoad);
   const { data = [], refetch, isLoading, error } = useGetBooksQuery(1, { skip });
   const categories = useGetCategoriesQuery(1, { skip });
+  const { isShowed } = useSelector((state) => state.modal);
 
   React.useEffect(() => {
     if (isLoad) {
@@ -47,11 +49,6 @@ export function MainPage() {
       navigate('/books/all');
     }
 
-    // dispatch(showLoader());
-
-    // if (isLoading || categories.isLoading) {
-    //   dispatch(showLoader());
-    // }
     if (isLoading) {
       dispatch(showLoader());
     }
@@ -60,17 +57,6 @@ export function MainPage() {
       dispatch(setBooksList(data));
       dispatch(hideLoader());
     }
-
-    // if (!isLoading && !categories.isLoading) {
-    //   dispatch(setBooksList(data));
-    //   dispatch(hideLoader());
-    // }
-
-    // if (error || categories.error) {
-    //   console.log(error);
-    //   console.log(categories.error);
-    //   dispatch(showError());
-    // }
   }, [location, navigate, isLoading, dispatch, isLoad, error, data, refetch]);
 
   if (!localStorage.getItem('jwt') || localStorage.getItem('jwt') === 'null') {
@@ -80,6 +66,8 @@ export function MainPage() {
   return (
     <>
       {isLoading && !error && <Preloader />}
+
+      {isShowed && <Modal title='Выбор даты бронирования' />}
 
       <div className='wrapper'>
         {isError && <Error />}

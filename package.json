@@ -44,6 +44,8 @@
     "prettier": "^2.6.2",
     "prettier-eslint": "^14.0.2",
     "prettier-eslint-cli": "^5.0.1",
+    "primeicons": "^6.0.1",
+    "primereact": "^9.2.0",
     "react-hook-form": "^7.43.2",
     "react-input-mask": "^2.0.4",
     "react-redux": "^8.0.5",
@@ -54,9 +56,7 @@
     "stylelint-config-standard": "^29.0.0",
     "stylelint-prettier": "^2.0.0",
     "swiper": "^9.0.3",
-    "yup": "^1.0.2",
-    "primeicons": "^6.0.1",
-    "primereact": "^9.2.0"
+    "yup": "^1.0.2"
   },
   "dependencies": {
     "@hookform/resolvers": "^2.9.11",

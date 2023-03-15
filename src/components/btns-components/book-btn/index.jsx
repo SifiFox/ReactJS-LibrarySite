@@ -2,9 +2,9 @@ import React from 'react';
 
 import styles from './book-btn.module.scss';
 
-export function BookBtn() {
+export function BookBtn({ handleClickBtn }) {
   return (
-    <button className={styles.root} type='button'>
+    <button onClick={(e) => handleClickBtn(e)} className={styles.root} type='button'>
       забронировать
     </button>
   );

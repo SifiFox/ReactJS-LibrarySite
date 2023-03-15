@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { BookCard } from '../book-component';
 import { SearchEmpty } from '../search-empty-component';
+import styles from './bookslist-component.module.scss';
 
 export function BooksList({ listType }) {
   const books = useSelector((state) => state.booksList.booksList);
@@ -86,7 +87,7 @@ export function BooksList({ listType }) {
     <React.Fragment>
       {searchedBooks.length !== 0 ? (
         sortBooks(searchedBooks, sort).map((book) => (
-          <Link key={book.id} to={`/books/${currentCategory}/${book.id}`}>
+          <Link className={styles.bookCardLink} key={book.id} to={`/books/${currentCategory}/${book.id}`}>
             <BookCard
               key={book.id}
               title={book.title}
@@ -97,6 +98,8 @@ export function BooksList({ listType }) {
               booking={book.booking}
               listType={listType}
               markedTitle={book.markedTitle}
+              delivery={book.delivery}
+              histories={book.histories}
             />
           </Link>
         ))
