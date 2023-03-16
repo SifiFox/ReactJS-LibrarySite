@@ -83,6 +83,8 @@ export function BooksList({ listType }) {
     }
   }, [search.length]);
 
+  console.log(books);
+
   return (
     <React.Fragment>
       {searchedBooks.length !== 0 ? (

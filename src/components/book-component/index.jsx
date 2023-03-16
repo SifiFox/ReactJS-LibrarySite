@@ -14,18 +14,14 @@ import { showModal } from '../../redux/slices/modal-slice';
 export function BookCard({ title, rating, year, author, image, booking, listType, markedTitle, delivery, histories }) {
   const [dateString, setDateString] = React.useState(null);
   const { user } = useSelector((state) => state.auth);
-  const currentUser = JSON.parse(user);
+  const currentUser = user;
 
   const [isBooked, setIsBooked] = React.useState(false);
   const [isBookedMyself, setIsBookedMyself] = React.useState(false);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    // if (delivery) {
-    //   console.log(delivery);
-    // }
     if (booking) {
-      // console.log(booking);
       if (booking.customerId === currentUser.id) {
         setIsBookedMyself(true);
       }
@@ -46,10 +42,7 @@ export function BookCard({ title, rating, year, author, image, booking, listType
     e.stopPropagation();
     e.preventDefault();
 
-    dispatch(showModal);
-
-    alert('Скрипт сработал');
-    console.log('clicked');
+    dispatch(showModal());
   };
 
   return (

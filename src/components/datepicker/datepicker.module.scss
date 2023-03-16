@@ -63,6 +63,7 @@
   justify-content: center;
   align-items: center;
   color: var(--current-orange);
+  cursor: pointer;
 }
 
 .weekend {
@@ -81,9 +82,31 @@
   justify-content: space-between;
   padding: 1.6rem 1.6rem 0.8rem 2.4rem;
 }
+.selectedDay {
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 50%;
+  // background: var(--current-orange);
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(231.58deg, #f83600 -53.35%, #f9d423 297.76%);
+}
+
+.selectAccessable {
+  width: 3.2rem;
+  height: 3.2rem;
+  color: var(--access-black);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
 
 .calendarNav {
   display: flex;
+  align-items: center;
   gap: 1.2rem;
 }
 
@@ -93,10 +116,58 @@
 
 .root {
   width: 25.6rem;
-  height: 24rem;
+  height: fit-content;
+  min-height: 27.2rem;
   margin: 0 auto;
   background: #ffffff;
   box-shadow: 0rem 0.2rem 0.4rem rgba(191, 196, 201, 0.2), 0rem 0.3rem 0.4rem rgba(191, 196, 201, 0.18),
     0rem 0.1rem 0.5rem rgba(191, 196, 201, 0.24);
   border-radius: 0.8rem;
+  position: relative;
+}
+
+.arrowDown,
+.arrowTop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+}
+
+.arrowDown {
+  transform: rotate(180deg);
+}
+
+.monthPicker {
+  position: absolute;
+  width: 100%;
+  height: fit-content;
+  top: -2rem;
+  padding: 2rem;
+  border-radius: 0.8rem;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  box-shadow: 0rem 0rem 0.4rem rgba(191, 196, 201, 0.2), 0rem 0.3rem 0.4rem rgba(191, 196, 201, 0.18),
+    0rem 0.1rem 0.5rem rgba(191, 196, 201, 0.24);
+}
+
+.month {
+  width: 40%;
+  height: 3.2rem;
+  display: flex;
+  border-radius: 2rem;
+  align-items: center;
+  justify-content: center;
+  // border: 0.1rem solid var(--current-orange);
+  cursor: pointer;
+  box-shadow: 0rem 0.2rem 0.4rem rgba(191, 196, 201, 0.2), 0rem 0.3rem 0.4rem rgba(191, 196, 201, 0.18),
+    0rem 0.1rem 0.5rem rgba(191, 196, 201, 0.24);
+  &:hover {
+    background: linear-gradient(231.58deg, #f83600 -53.35%, #f9d423 297.76%);
+    color: #ffffff;
+  }
 }

@@ -14,6 +14,7 @@ const modalSlice = createSlice({
     },
     hideModal(state) {
       state.isShowed = false;
+      console.log('hide');
     },
     setModalType(state, action) {
       state.type = action.payload;
