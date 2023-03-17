@@ -92,6 +92,7 @@ export function BooksList({ listType }) {
           <Link className={styles.bookCardLink} key={book.id} to={`/books/${currentCategory}/${book.id}`}>
             <BookCard
               key={book.id}
+              id={book.id}
               title={book.title}
               year={book.issueYear}
               author={book.authors}

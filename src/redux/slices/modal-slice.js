@@ -1,20 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  isShowed: true,
+  isShowed: false,
+  selectedBook: 0,
   type: 'booking',
+  isBookedMyself: false,
 };
 
 const modalSlice = createSlice({
   name: 'loader',
   initialState,
   reducers: {
-    showModal(state) {
+    showModal(state, action) {
       state.isShowed = true;
+      state.selectedBook = action.payload.id;
+      state.isBookedMyself = action.payload.isBookedMyself;
     },
     hideModal(state) {
       state.isShowed = false;
-      console.log('hide');
     },
     setModalType(state, action) {
       state.type = action.payload;

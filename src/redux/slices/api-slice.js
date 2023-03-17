@@ -66,6 +66,17 @@ export const booksApi = createApi({
         body: registrationData,
       }),
     }),
+
+    booking: builder.mutation({
+      query: (bookingData) => ({
+        headers: {
+          'Content-type': 'application/json',
+        },
+        url: '/api/bookings',
+        method: 'POST',
+        body: bookingData,
+      }),
+    }),
   }),
 });
 
@@ -74,6 +85,7 @@ export const {
   useGetBookQuery,
   useGetCategoriesQuery,
   useUserLoginMutation,
+  useBookingMutation,
   useForgotPasswordMutation,
   useResetPasswordMutation,
   useRegistrationMutation,

@@ -11,26 +11,41 @@ import bookImageEmpty from '../../assets/images/bookImageEmpty.jpg';
 import { baseUrl } from '../../constants/constants';
 import { showModal } from '../../redux/slices/modal-slice';
 
-export function BookCard({ title, rating, year, author, image, booking, listType, markedTitle, delivery, histories }) {
+export function BookCard({
+  id,
+  title,
+  rating,
+  year,
+  author,
+  image,
+  booking,
+  listType,
+  markedTitle,
+  delivery,
+  histories,
+}) {
   const [dateString, setDateString] = React.useState(null);
   const { user } = useSelector((state) => state.auth);
   const currentUser = user;
 
   const [isBooked, setIsBooked] = React.useState(false);
+  const [isDelivery, setIsDelivery] = React.useState(false);
+
   const [isBookedMyself, setIsBookedMyself] = React.useState(false);
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     if (booking) {
-      if (booking.customerId === currentUser.id) {
+      if (booking.customerId === JSON.parse(currentUser).id) {
         setIsBookedMyself(true);
       }
       setIsBooked(true);
     } else {
       setIsBooked(false);
     }
-    if (booking) {
-      const dateString = new Date(booking.dateOrder).toLocaleString('ru-RU', {
+    if (delivery) {
+      setIsDelivery(true);
+      const dateString = new Date(delivery.dateHandedTo).toLocaleString('ru-RU', {
         month: 'numeric',
         day: 'numeric',
       });
@@ -41,8 +56,20 @@ export function BookCard({ title, rating, year, author, image, booking, listType
   const handleClickBtn = (e) => {
     e.stopPropagation();
     e.preventDefault();
+    dispatch(showModal({ id, isBookedMyself }));
+  };
 
-    dispatch(showModal());
+  const renderBtn = () => {
+    if (isDelivery) {
+      return <DisabledBtn date={dateString} />;
+    }
+    if (isBookedMyself) {
+      return <BookBtn disabled={false} isBookedMyself={isBookedMyself} handleClickBtn={handleClickBtn} />;
+    }
+    if (isBooked) {
+      return <BookBtn disabled={true} handleClickBtn={handleClickBtn} />;
+    }
+    return <BookBtn handleClickBtn={handleClickBtn} />;
   };
 
   return (
@@ -67,7 +94,7 @@ export function BookCard({ title, rating, year, author, image, booking, listType
         <div className={styles.bookAuthor}>
           {author}, {year}
         </div>
-        {isBooked ? <DisabledBtn date={dateString} /> : <BookBtn handleClickBtn={handleClickBtn} />}
+        {renderBtn()}
       </div>
     </div>
   );

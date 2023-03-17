@@ -1,4 +1,7 @@
 import React from 'react';
+
+import { useSelector } from 'react-redux';
+
 import { useCalendar } from '../../hooks/use-calendar';
 import { checkDateIsEqual } from '../../utils/helpers/check-date-is-equal';
 import { checkIsToday } from '../../utils/helpers/check-is-today';
@@ -7,10 +10,13 @@ import { formatDate } from '../../utils/helpers/format-date';
 
 import calendarArrow from '../../assets/icons/calendarArrow.svg';
 import styles from './datepicker.module.scss';
+import { createDate } from '../../utils/helpers/create-date';
 
-export function DatePicker({ locale = 'default', selectedDate: date, handleSelectDay, firstWeekDayNumber = 2 }) {
-  const [defaultState, setDefaultState] = React.useState(true);
+export function DatePicker({ locale = 'default', selectedDay: date, handleSelectDay, firstWeekDayNumber = 2 }) {
+  const isBookedMyselfModal = useSelector((state) => state.modal.isBookedMyself);
+  const [defaultState, setDefaultState] = React.useState(!isBookedMyselfModal);
   const [monthPickerShowed, setMonthPickerShowed] = React.useState(false);
+
   const { state, functions } = useCalendar({
     locale,
     selectedDate: date,
@@ -37,6 +43,7 @@ export function DatePicker({ locale = 'default', selectedDate: date, handleSelec
           );
         }
       }
+
       return (
         <div role='presentation' onClick={() => handleDayClick(day)} key={day.timestamp} className={styles.selectedDay}>
           {day.dayNumber}
@@ -52,7 +59,34 @@ export function DatePicker({ locale = 'default', selectedDate: date, handleSelec
       );
     }
 
+    if (day.dayNumberInWeek === 2) {
+      const today = createDate(new Date());
+      if (
+        (today.dayNumberInWeek === 6 && day.week - today.week === 1) ||
+        (today.dayNumberInWeek === 7 && day.week - today.week === 1) ||
+        (today.dayNumberInWeek === 1 && day.week - today.week === 1)
+      ) {
+        return (
+          <div
+            role='presentation'
+            onClick={() => handleDayClick(day)}
+            key={day.timestamp}
+            className={styles.selectAccessable}
+          >
+            {day.dayNumber}
+          </div>
+        );
+      }
+    }
+
     if (checkIsTomorow(day.date)) {
+      if (day.dayNumberInWeek === 7 || day.dayNumberInWeek === 1) {
+        return (
+          <div key={day.timestamp} className={styles.weekend}>
+            {day.dayNumber}
+          </div>
+        );
+      }
       return (
         <div
           role='presentation'
@@ -79,7 +113,6 @@ export function DatePicker({ locale = 'default', selectedDate: date, handleSelec
     );
   }
 
-  console.log(state);
   return (
     <div className={styles.root}>
       <div className={styles.calendarHeader}>
